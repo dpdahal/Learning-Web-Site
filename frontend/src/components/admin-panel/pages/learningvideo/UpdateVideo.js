@@ -14,7 +14,7 @@ const iqSchema = yup.object().shape({
     description: yup.string().required(),
 });
 
-function UpdateImportantQuestionComponents() {
+function UpdateVideo() {
     const params = useParams();
     const {
         register,
@@ -29,18 +29,18 @@ function UpdateImportantQuestionComponents() {
         color: "#f60000",
     }
 
-    let getQuestion = () => {
-        api.get(`/iq/${params.id}`).then((response) => {
-            let iq = response.data.iq;
-            setValue("type", iq.type);
-            setValue("title", iq.title);
-            setValue("description", iq.description);
+    let getVideo = () => {
+        api.get(`/lv/${params.id}`).then((response) => {
+            let lv = response.data.lv;
+            setValue("type", lv.type);
+            setValue("title", lv.title);
+            setValue("description", lv.description);
         });
     }
 
 
     useEffect(() => {
-        getQuestion();
+        getVideo();
     }, [params.id]);
 
     const updateData = (data) => {
@@ -49,8 +49,8 @@ function UpdateImportantQuestionComponents() {
         sendData.append('type', data.type);
         sendData.append('title', data.title);
         sendData.append('description', data.description);
-        sendData.append("image", data.image ?? "");
-        api.put("/iq/", sendData, {
+        sendData.append("video", data.video ?? "");
+        api.put("/lv/", sendData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -77,7 +77,7 @@ function UpdateImportantQuestionComponents() {
                 <div className="row">
                     <div className="col-md-12 mb-4">
                         <h1>
-                            <i className="bi bi-pencil-square"></i> Update Important Question
+                            <i className="bi bi-pencil-square"></i> Update Video
                         </h1>
                         <hr/>
                     </div>
@@ -110,16 +110,16 @@ function UpdateImportantQuestionComponents() {
                                           className="form-control"/>
                             </div>
                             <div className="form-group mb-4">
-                                <label htmlFor="images">Images:
+                                <label htmlFor="video">Video:
 
                                 </label>
-                                <input type="file" name="image"
+                                <input type="file" name="video"
                                        className="form-control"
-                                       onChange={(e) => setValue('image', e.target.files[0])}/>
+                                       onChange={(e) => setValue('video', e.target.files[0])}/>
                             </div>
                             <div className="form-group mb-4">
                                 <button className="btn btn-success">
-                                    <i className="bi bi-pencil-square"></i> Update Important Question
+                                    <i className="bi bi-pencil-square"></i> Update Video
                                 </button>
                             </div>
                         </form>
@@ -131,4 +131,4 @@ function UpdateImportantQuestionComponents() {
     )
 }
 
-export default UpdateImportantQuestionComponents
+export default UpdateVideo

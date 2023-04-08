@@ -14,7 +14,7 @@ const iqSchema = yup.object().shape({
     description: yup.string().required(),
 });
 
-function UpdateImportantQuestionComponents() {
+function UpdateBook() {
     const params = useParams();
     const {
         register,
@@ -29,8 +29,8 @@ function UpdateImportantQuestionComponents() {
         color: "#f60000",
     }
 
-    let getQuestion = () => {
-        api.get(`/iq/${params.id}`).then((response) => {
+    let getBook = () => {
+        api.get(`/book/${params.id}`).then((response) => {
             let iq = response.data.iq;
             setValue("type", iq.type);
             setValue("title", iq.title);
@@ -40,7 +40,7 @@ function UpdateImportantQuestionComponents() {
 
 
     useEffect(() => {
-        getQuestion();
+        getBook();
     }, [params.id]);
 
     const updateData = (data) => {
@@ -50,7 +50,7 @@ function UpdateImportantQuestionComponents() {
         sendData.append('title', data.title);
         sendData.append('description', data.description);
         sendData.append("image", data.image ?? "");
-        api.put("/iq/", sendData, {
+        api.put("/book/", sendData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -77,7 +77,7 @@ function UpdateImportantQuestionComponents() {
                 <div className="row">
                     <div className="col-md-12 mb-4">
                         <h1>
-                            <i className="bi bi-pencil-square"></i> Update Important Question
+                            <i className="bi bi-pencil-square"></i> Update Book
                         </h1>
                         <hr/>
                     </div>
@@ -119,7 +119,7 @@ function UpdateImportantQuestionComponents() {
                             </div>
                             <div className="form-group mb-4">
                                 <button className="btn btn-success">
-                                    <i className="bi bi-pencil-square"></i> Update Important Question
+                                    <i className="bi bi-pencil-square"></i> Update Book
                                 </button>
                             </div>
                         </form>
@@ -131,4 +131,4 @@ function UpdateImportantQuestionComponents() {
     )
 }
 
-export default UpdateImportantQuestionComponents
+export default UpdateBook

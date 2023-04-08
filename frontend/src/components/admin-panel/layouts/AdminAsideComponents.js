@@ -50,14 +50,40 @@ function AdminAsideComponents() {
                             : ''}
 
 
+
                         {user.role === 'admin' ?
-                        <li className="nav-item">
-                            <Link to='/show-imp-question' className="nav-link" href="#">
-                                <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                <i className="bi bi-images"></i> Manage Question
-                            </Link>
-                        </li>
-                        : ''}
+                            <li className="nav-item">
+                                <Link to='/show-question' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-images"></i> Quiz Question
+                                </Link>
+                            </li>
+                            : ''}
+                        {user.role === 'admin' ?
+                            <li className="nav-item">
+                                <Link to='/show-imp-question' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-images"></i> Manage Question
+                                </Link>
+                            </li>
+                            : ''}
+                        {user.role === 'admin' ?
+                            <li className="nav-item">
+                                <Link to='/show-video' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-images"></i> Show Video
+                                </Link>
+                            </li>
+                            : ''}
+
+                        {user.role === 'admin' ?
+                            <li className="nav-item">
+                                <Link to='/show-book' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-images"></i> Show Book
+                                </Link>
+                            </li>
+                            : ''}
 
                         <li className="nav-item">
                             <Link to='/update-profile' className="nav-link" href="#">
