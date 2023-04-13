@@ -93,23 +93,26 @@ function AddBook() {
                                    {...register("title")}
                                    className="form-control"/>
                         </div>
+                        <div className="form-group mb-4">
+                            <label htmlFor="images">PDF Files:
+
+                            </label>
+                            <input type="file" name="image" required
+                                   className="form-control"
+                                   accept="application/pdf"
+                                   onChange={(e) => setValue('image', e.target.files[0])}/>
+                        </div>
 
                         <div className="form-group mb-4">
                             <label htmlFor="description">Description:
                                 {errors.description && <a style={pStyle}>{errors.description.message}</a>}
                             </label>
                             <textarea name="description"
+                                      rows="5"
                                       {...register("description")}
                                       className="form-control"/>
                         </div>
-                        <div className="form-group mb-4">
-                            <label htmlFor="images">Images:
 
-                            </label>
-                            <input type="file" name="image" required
-                                   className="form-control"
-                                   onChange={(e) => setValue('image', e.target.files[0])}/>
-                        </div>
                         <div className="form-group mb-4">
                             <button className="btn btn-success">
                                 <i className="bi bi-bag-plus-fill"></i> Add Book

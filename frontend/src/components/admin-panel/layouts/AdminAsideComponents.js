@@ -50,7 +50,6 @@ function AdminAsideComponents() {
                             : ''}
 
 
-
                         {user.role === 'admin' ?
                             <li className="nav-item">
                                 <Link to='/show-question' className="nav-link" href="#">
@@ -63,7 +62,7 @@ function AdminAsideComponents() {
                             <li className="nav-item">
                                 <Link to='/show-imp-question' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                    <i className="bi bi-images"></i> Manage Question
+                                    <i className="bi bi-images"></i> Important Question
                                 </Link>
                             </li>
                             : ''}
@@ -71,24 +70,51 @@ function AdminAsideComponents() {
                             <li className="nav-item">
                                 <Link to='/show-video' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                    <i className="bi bi-images"></i> Show Video
+                                    <i className="bi bi-images"></i> Learning Video
                                 </Link>
                             </li>
-                            : ''}
+                            :
+                            <li className="nav-item">
+                                <Link to='/show-video-for-user' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-book"></i> Learning Video
+                                </Link>
+                            </li>
+                        }
 
                         {user.role === 'admin' ?
                             <li className="nav-item">
                                 <Link to='/show-book' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                    <i className="bi bi-images"></i> Show Book
+                                    <i className="bi bi-book"></i> Book & PDF
                                 </Link>
                             </li>
-                            : ''}
+                            :
+                            <li className="nav-item">
+                                <Link to='/show-book-for-user' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-book"></i> Manage Book & PDF
+                                </Link>
+                            </li>
+
+                        }
 
                         <li className="nav-item">
                             <Link to='/update-profile' className="nav-link" href="#">
                                 <span data-feather="shopping-cart" className="align-text-bottom"/>
                                 <i className="bi bi-pencil-square"></i> Update Profile
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/quiz-play' className="nav-link" href="#">
+                                <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                <i className="bi bi-pencil-square"></i> Quiz Play
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/check-answer' className="nav-link" href="#">
+                                <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                <i className="bi bi-pencil-square"></i> Check Answer
                             </Link>
                         </li>
                         <li className="nav-item">

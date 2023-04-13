@@ -1,8 +1,12 @@
 .login-btn{
     min-width:120px;
-    background-color: rgb(115, 0, 234);
+    background-color: rgb(3, 26, 114);
     color: white;
     height: 40px;
     border: none;
     border-radius: 5px;
+}
+
+.login-page{
+   margin-top: 100px;
 }

@@ -70,8 +70,9 @@ function ShowVideo() {
                                 <th>ID</th>
                                 <th>Type</th>
                                 <th>Title</th>
+                                <th>Price</th>
                                 <th>Description</th>
-                                <th>Images</th>
+                                <th>Video</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -82,9 +83,12 @@ function ShowVideo() {
                                         <td>{++index}</td>
                                         <td>{video.type}</td>
                                         <td>{video.title}</td>
+                                        <td>{video.price}</td>
                                         <td>{video.description}</td>
                                         <td>
-                                            <img src={video.image} width="90" alt=""/>
+                                            <video width="100%" height="100" controls>
+                                                <source src={video.videoUrl}/>
+                                            </video>
                                         </td>
                                         <td>
                                             <button onClick={() => updateData(video._id)}

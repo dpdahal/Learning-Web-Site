@@ -17,6 +17,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage: storage})
+qRoute.get('/', qInstance.index);
+qRoute.post('/check-playing', qInstance.checkAnswer);
+qRoute.post('/insert-answer', qInstance.insertAnswer);
 
 qRoute.post('/', upload.fields([
     {name: 'image'},
@@ -25,6 +28,8 @@ qRoute.post('/', upload.fields([
     {name: 'optionCImage'},
     {name: 'optionDImage'}
 ]), qInstance.store);
+
+qRoute.delete('/:id', qInstance.destroy);
 
 
 export default qRoute;

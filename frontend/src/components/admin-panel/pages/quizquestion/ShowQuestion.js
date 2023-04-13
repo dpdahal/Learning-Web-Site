@@ -11,6 +11,7 @@ function ShowQuestions() {
 
     let getQuestion = () => {
         api.get("/question").then((res) => {
+            console.log(res.data.question)
             setQuestions(res.data.question);
         });
     }
@@ -30,7 +31,7 @@ function ShowQuestions() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                api.delete(`/iq/${id}`).then((res) => {
+                api.delete(`/question/${id}`).then((res) => {
                     if (res.data.success) {
                         Swal.fire(
                             'Deleted!',
@@ -69,8 +70,11 @@ function ShowQuestions() {
                             <tr>
                                 <th>ID</th>
                                 <th>Type</th>
-                                <th>Title</th>
-                                <th>Description</th>
+                                <th>Prompt</th>
+                                <th>Option A</th>
+                                <th>Option B</th>
+                                <th>Option C</th>
+                                <th>Option D</th>
                                 <th>Images</th>
                                 <th>Action</th>
                             </tr>
@@ -81,12 +85,29 @@ function ShowQuestions() {
                                     <tr key={index}>
                                         <td>{++index}</td>
                                         <td>{impQuestion.type}</td>
-                                        <td>{impQuestion.title}</td>
-                                        <td>{impQuestion.description}</td>
+                                        <td>{impQuestion.prompt}</td>
+                                        <td>
+                                            {impQuestion.optionA}
+                                            <br/>
+                                            <img src={impQuestion.optionAImage} width='50' alt="image not found"/>
+                                        </td>
+                                        <td>{impQuestion.optionB}
+                                            <br/>
+                                            <img src={impQuestion.optionBImage} width='50' alt="image not found"/>
+                                        </td>
+                                        <td>{impQuestion.optionC}
+                                            <br/>
+                                            <img src={impQuestion.optionCImage} width='50' alt="image not found"/>
+                                        </td>
+                                        <td>{impQuestion.optionD}
+                                            <br/>
+                                            <img src={impQuestion.optionDImage} width='50' alt="image not found"/>
+                                        </td>
+
                                         <td>
                                             <img src={impQuestion.image} width="90" alt=""/>
                                         </td>
-                                        <td>
+                                        <td width="15%">
                                             <button onClick={() => updateData(impQuestion._id)}
                                                     className="btn btn-success">
                                                 <i className="bi bi-pencil-square"></i> Edit

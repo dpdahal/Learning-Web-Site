@@ -14,22 +14,11 @@ const QuestionSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    optionA: {
-        type: String,
+    options: {
+        type: [Object],
         required: true,
     },
-    optionB: {
-        type: String,
-        required: true,
-    },
-    optionC: {
-        type: String,
-        required: true,
-    },
-    optionD: {
-        type: String,
-        required: true,
-    },
+
     optionAImage: {
         type: String,
         required: false
@@ -45,12 +34,11 @@ const QuestionSchema = new mongoose.Schema({
     optionDImage: {
         type: String,
         required: false
-    },
-    answer: {
-        type: [String],
-        required: true,
     }
-});
+},
+    {
+        versionKey: false,
+    });
 
 
 QuestionSchema.methods.toJSON = function () {
@@ -59,6 +47,26 @@ QuestionSchema.methods.toJSON = function () {
         qz.image = process.env.BASE_URL + "/uploads/question/" + qz.image;
     } else {
         qz.image = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
+    }
+    if (qz.optionAImage) {
+        qz.optionAImage = process.env.BASE_URL + "/uploads/question/" + qz.optionAImage;
+    } else {
+        qz.optionAImage = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
+    }
+    if (qz.optionBImage) {
+        qz.optionBImage = process.env.BASE_URL + "/uploads/question/" + qz.optionBImage;
+    } else {
+        qz.optionBImage = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
+    }
+    if (qz.optionCImage) {
+        qz.optionCImage = process.env.BASE_URL + "/uploads/question/" + qz.optionCImage;
+    } else {
+        qz.optionCImage = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
+    }
+    if (qz.optionDImage) {
+        qz.optionDImage = process.env.BASE_URL + "/uploads/question/" + qz.optionDImage;
+    } else {
+        qz.optionDImage = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
     }
     return qz;
 }

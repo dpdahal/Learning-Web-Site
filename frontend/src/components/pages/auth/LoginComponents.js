@@ -1,11 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import {useDispatch} from "react-redux";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Swal from "sweetalert2";
 import {loginUser} from "../../../lib/reducers/usersSlice";
 import "./Login.css";
 
@@ -17,6 +16,7 @@ const LoginSchema = yup.object().shape({
 function LoginComponents() {
     const dispatch = useDispatch();
     const {
+        setError,
         register,
         handleSubmit,
         formState: {errors}
@@ -32,13 +32,17 @@ function LoginComponents() {
                 localStorage.setItem('token', res.payload.token);
                 localStorage.setItem('user', JSON.stringify(res.payload.user));
                 window.location.href = "/dashboard";
-            } else {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: `${res.payload.error} `,
-                    showConfirmButton: true,
-                });
+            }
+            if (res.payload.error) {
+
+                if (res.payload.error.email) {
+                    setError('email', {type: 'manual', message: res.payload.error.email})
+                }
+
+                if (res.payload.error.password) {
+                    setError('password', {type: 'manual', message: res.payload.error.password})
+                }
+
             }
 
         }, [])
@@ -48,9 +52,11 @@ function LoginComponents() {
 
     return (
         <React.Fragment>
-            <div className="container mt-5 mt-5 mb-5">
+            <div className="container login-page mt-5 mt-5 mb-5">
                 <div className="row  justify-content-center">
                     <div className="col-md-4 mb-4">
+                        <h1>Sajilo Pathsala</h1>
+                        <hr/>
                         <h1>Login</h1>
                     </div>
                 </div>
@@ -76,6 +82,9 @@ function LoginComponents() {
                                     <i className="bi bi-file-lock-fill"></i> Login
                                 </button>
                                 <Link to="/register" className="float-end">Sign up Account</Link>
+                            </div>
+                            <div className="form-group mb-5">
+                                <Link to="/forgot-password">Forgot Password</Link>
                             </div>
                         </form>
                     </div>

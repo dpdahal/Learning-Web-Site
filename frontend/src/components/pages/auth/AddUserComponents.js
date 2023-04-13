@@ -5,9 +5,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import {createUser} from "../../../lib/reducers/usersSlice";
-import "./Login.css";
 import {Link} from "react-router-dom";
-
 
 const RegisterSchema = yup.object().shape({
     name: yup.string().required(),
@@ -16,9 +14,7 @@ const RegisterSchema = yup.object().shape({
     confirm_password: yup.string().required()
         .oneOf([yup.ref('password'), null], 'Passwords must match'),
     gender: yup.string().required(),
-    role: yup.string().required(),
     address: yup.string().required(),
-    // phone is required and must be a valid phone number and must be 10 digits
     phone: yup.string().required().matches(/^[0-9]{10}$/, "Must be exactly 10 digits"),
 });
 
@@ -41,7 +37,6 @@ function AddUserComponents() {
         sendData.append('email', data.email);
         sendData.append('password', data.password);
         sendData.append('gender', data.gender);
-        sendData.append('role', data.role);
         sendData.append('address', data.address);
         sendData.append('phone', data.phone);
         sendData.append("image", data.image ?? "");
@@ -55,8 +50,8 @@ function AddUserComponents() {
                 });
                 reset();
                 setTimeout(() => {
-                    window.location.href = "/login";
-                }, 5000)
+                    window.location.href = "/";
+                }, 3000)
 
             }
 
@@ -75,7 +70,7 @@ function AddUserComponents() {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <form action="" onSubmit={handleSubmit(insertUser)}>
+                        <form action="users" onSubmit={handleSubmit(insertUser)}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group mb-3">
@@ -100,31 +95,15 @@ function AddUserComponents() {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label htmlFor="gender">Account Role:
-                                                    {errors.role && <a style={pStyle}>{errors.role.message}</a>}
-                                                </label>
-                                                <select name="gender"  {...register("role")} className="form-control">
-                                                    <option value="">--Select Role---</option>
-                                                    <option value="client">Client</option>
-                                                    <option value="organizer">Organizer</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label htmlFor="gender">Gender:
-                                                    {errors.gender && <a style={pStyle}>{errors.gender.message}</a>}
-                                                </label>
-                                                <select name="gender"  {...register("gender")} className="form-control">
-                                                    <option value="">--select gender---</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div className="form-group mb-3">
+                                        <label htmlFor="gender">Gender:
+                                            {errors.gender && <a style={pStyle}>{errors.gender.message}</a>}
+                                        </label>
+                                        <select name="gender"  {...register("gender")} className="form-control">
+                                            <option value="">--select gender---</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -183,7 +162,7 @@ function AddUserComponents() {
 
                             <div className="form-group mb-5 mt-2">
                                 <button className="login-btn">New User</button>
-                                <Link to="/login" className="float-end">Login</Link>
+                                <Link to="/" className="float-end">Login</Link>
                             </div>
                         </form>
                     </div>

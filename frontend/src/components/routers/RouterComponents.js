@@ -1,6 +1,6 @@
 import {Routes, Route} from "react-router-dom";
 
-import AddUserComponents from "../pages/users/AddUserComponents";
+import AddUserComponents from "../pages/auth/AddUserComponents";
 import LoginComponents from "../pages/auth/LoginComponents";
 import AuthMiddleware from "../../lib/AuthMiddleware";
 import UpdateUserComponents from "../admin-panel/pages/users/UpdateUserComponents";
@@ -23,6 +23,14 @@ import ShowBook from "../admin-panel/pages/book/ShowBook";
 import UpdateBook from "../admin-panel/pages/book/UpdateBook";
 import AddQuestion from "../admin-panel/pages/quizquestion/AddQuestion";
 import ShowQuestions from "../admin-panel/pages/quizquestion/ShowQuestion";
+import ShowBookListForUser from "../admin-panel/pages/book/ShowBookListForUser";
+import ShowBookDetailsForUser from "../admin-panel/pages/book/ShowBookDetailsForUser";
+import ShowVideoListForUser from "../admin-panel/pages/learningvideo/ShowVideoListForUser";
+import ShowVideoDetailsForUser from "../admin-panel/pages/learningvideo/ShowVideoDetailsForUser";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
+import QuizQuestionAnswer from "../admin-panel/pages/quizquestion/QuizQuestionAnswer";
+import CheckQuizAnswer from "../admin-panel/pages/quizquestion/CheckQuizAnswer";
 
 function RouterComponents() {
     return (
@@ -30,30 +38,38 @@ function RouterComponents() {
             <Routes>
                 <Route path="/" element={<LoginComponents/>}/>
                 <Route path="/register" element={<AddUserComponents/>}/>
+                <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                <Route path="/reset-password/:id" element={<ResetPassword/>}/>
 
                 <Route element={<AuthMiddleware/>}>
                     <Route path="/dashboard" element={<DashboardComponents/>}/>
                     <Route path="/update-profile" element={<UpdateUserComponents/>}/>
                     <Route path="/change-password" element={<ChangePasswordComponents/>}/>
                     <Route path="/show-users" element={<ShowUserComponents/>}/>
+                    <Route path="/show-book-for-user/" element={<ShowBookListForUser/>}/>
+                    <Route path="/show-book-for-user-type/:type" element={<ShowBookDetailsForUser/>}/>
+                    <Route path="/quiz-play" element={<QuizQuestionAnswer/>}/>
+                    <Route path="/check-answer" element={<CheckQuizAnswer/>}/>
 
 
-                    <Route path="/add-imp-question" element={<AddImportantQuestionComponents/>}/>
-                    <Route path="/show-imp-question" element={<ShowImportantQuestionComponents/>}/>
-                    <Route path="/update-imp-question/:id" element={<UpdateImportantQuestionComponents/>}/>
+                    <Route path="/show-video-for-user/" element={<ShowVideoListForUser/>}/>
+                    <Route path="/show-video-for-user-type/:type" element={<ShowVideoDetailsForUser/>}/>
 
 
-                    <Route path="/add-video" element={<AddVideo/>}/>
-                    <Route path="/show-video" element={<ShowVideo/>}/>
-                    <Route path="/update-video/:id" element={<UpdateVideo/>}/>
-
-                    <Route path="/add-book" element={<AddBook/>}/>
-                    <Route path="/show-book" element={<ShowBook/>}/>
-                    <Route path="/update-book/:id" element={<UpdateBook/>}/>
-
-                    <Route path="/add-question" element={<AddQuestion/>}/>
-                    <Route path="/show-question" element={<ShowQuestions/>}/>
-                    <Route path="/update-question/:id" element={<UpdateBook/>}/>
+                    <Route element={<RoleMiddleware/>}>
+                        <Route path="/add-imp-question" element={<AddImportantQuestionComponents/>}/>
+                        <Route path="/show-imp-question" element={<ShowImportantQuestionComponents/>}/>
+                        <Route path="/update-imp-question/:id" element={<UpdateImportantQuestionComponents/>}/>
+                        <Route path="/add-video" element={<AddVideo/>}/>
+                        <Route path="/show-video" element={<ShowVideo/>}/>
+                        <Route path="/update-video/:id" element={<UpdateVideo/>}/>
+                        <Route path="/add-book" element={<AddBook/>}/>
+                        <Route path="/show-book" element={<ShowBook/>}/>
+                        <Route path="/update-book/:id" element={<UpdateBook/>}/>
+                        <Route path="/add-question" element={<AddQuestion/>}/>
+                        <Route path="/show-question" element={<ShowQuestions/>}/>
+                        <Route path="/update-question/:id" element={<UpdateBook/>}/>
+                    </Route>
 
 
                 </Route>

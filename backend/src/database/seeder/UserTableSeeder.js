@@ -4,8 +4,8 @@ class UserTableSeeder {
     constructor() {
         let userData = [
             {
-                "name": "admin",
-                "email": "admin@gmail.com",
+                "name": "dp dahal",
+                "email": "dp48dahal@gmail.com",
                 "password": "admin",
                 "role": "admin",
                 "gender": "male",

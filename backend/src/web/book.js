@@ -25,4 +25,6 @@ bpRoute.get("/:id", pbInstance.show);
 bpRoute.put("/", upload.single('image'), pbInstance.update);
 bpRoute.delete("/:id", pbInstance.destroy);
 
+bpRoute.get('/show-book-for-user/:type', pbInstance.showBookForUser);
+
 export default bpRoute;

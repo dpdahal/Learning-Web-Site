@@ -84,7 +84,9 @@ function ShowBook() {
                                         <td>{book.title}</td>
                                         <td>{book.description}</td>
                                         <td>
-                                            <img src={book.image} width="90" alt=""/>
+                                            <a href={`${book.image}`}  download title={book.image}>
+                                                <i className="bi bi-file-earmark-pdf"></i>
+                                            </a>
                                         </td>
                                         <td>
                                             <button onClick={() => updateData(book._id)}

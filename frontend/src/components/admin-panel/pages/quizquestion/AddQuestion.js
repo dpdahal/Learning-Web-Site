@@ -38,10 +38,10 @@ function AddQuestion() {
         sendData.append('type', data.type);
         sendData.append('prompt', data.prompt);
         sendData.append("image", data.image ?? "");
-        sendData.append('optionA', data.option1)
-        sendData.append('optionB', data.option2)
-        sendData.append('optionC', data.option3)
-        sendData.append('optionD', data.option4)
+        sendData.append('option1', data.option1)
+        sendData.append('option2', data.option2)
+        sendData.append('option3', data.option3)
+        sendData.append('option4', data.option4)
         sendData.append("optionAImage", data.optionAImage ?? "");
         sendData.append("optionBImage", data.optionBImage ?? "");
         sendData.append("optionCImage", data.optionCImage ?? "");
@@ -52,7 +52,22 @@ function AddQuestion() {
                 'Content-Type': 'multipart/form-data'
             }
         }).then((response) => {
-            console.log(response.data)
+            if (response.data.success) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Question has been added successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                reset();
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Something went wrong',
+                })
+            }
         }).catch((err) => {
             console.log(err)
         })
@@ -67,7 +82,7 @@ function AddQuestion() {
                     <div className="col-md-12 mb-2">
                         <h1>
                             <i className="bi bi-bag-plus-fill"></i> Add Question
-                            <Link to="/show-video" className="btn btn-primary float-end">
+                            <Link to="/show-question" className="btn btn-primary float-end">
                                 <i className="bi bi-arrow-right-square-fill"></i> Show Question
                             </Link>
                         </h1>

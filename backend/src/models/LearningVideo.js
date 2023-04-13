@@ -6,10 +6,12 @@ const videoSchema = new mongoose.Schema({
         enum: ['MBBS', 'Engineering', 'LokSewa'],
         required: true
     },
-
     title: {
         type: String,
         required: true
+    },
+    price: {
+        type: Number,
     },
     description: {
         type: String,
@@ -24,16 +26,16 @@ const videoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-},{
+}, {
     versionKey: false
 });
 
 videoSchema.methods.toJSON = function () {
     const lv = this.toObject();
     if (lv.videoUrl) {
-        lv.image = process.env.BASE_URL + "/uploads/video/" + lv.videoUrl;
+        lv.videoUrl = process.env.BASE_URL + "/uploads/video/" + lv.videoUrl;
     } else {
-        lv.image = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
+        lv.videoUrl = process.env.BASE_URL + "/uploads/icons/imagenotfound.jpg";
     }
     return lv;
 }

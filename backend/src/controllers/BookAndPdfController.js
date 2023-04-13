@@ -124,6 +124,12 @@ class BookAndPdfController {
         }
     }
 
+    async showBookForUser(req, res) {
+        let type = req.params.type;
+        let book= await BookAndPdf.find({type: type});
+        return res.status(200).json({books:book});
+    }
+
 }
 
 export default BookAndPdfController;

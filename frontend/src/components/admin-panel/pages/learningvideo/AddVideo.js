@@ -12,6 +12,7 @@ import api from "../../../../lib/api";
 const lvSchema = yup.object().shape({
     type: yup.string().required(),
     title: yup.string().required(),
+    price: yup.number().required(),
     description: yup.string().required(),
 });
 
@@ -33,6 +34,7 @@ function AddVideo() {
         let sendData = new FormData();
         sendData.append('type', data.type);
         sendData.append('title', data.title);
+        sendData.append('price', data.price);
         sendData.append('description', data.description);
         sendData.append("video", data.video ?? "");
         api.post("/lv", sendData, {
@@ -83,14 +85,29 @@ function AddVideo() {
                                 <option value="LokSewa">LokSewa</option>
                             </select>
                         </div>
-                        <div className="form-group mb-4">
-                            <label htmlFor="title">Title:
-                                {errors.title && <a style={pStyle}>{errors.title.message}</a>}
-                            </label>
-                            <input type="text" name="title"
-                                   {...register("title")}
-                                   className="form-control"/>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group mb-4">
+                                    <label htmlFor="title">Title:
+                                        {errors.title && <a style={pStyle}>{errors.title.message}</a>}
+                                    </label>
+                                    <input type="text" name="title"
+                                           {...register("title")}
+                                           className="form-control"/>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group mb-4">
+                                    <label htmlFor="price">Price:
+                                        {errors.price && <a style={pStyle}>{errors.price.message}</a>}
+                                    </label>
+                                    <input type="number" name="price"
+                                           {...register("price")}
+                                           className="form-control"/>
+                                </div>
+                            </div>
                         </div>
+
 
                         <div className="form-group mb-4">
                             <label htmlFor="description">Description:
@@ -98,6 +115,7 @@ function AddVideo() {
                             </label>
                             <textarea name="description"
                                       {...register("description")}
+                                      rows="5"
                                       className="form-control"/>
                         </div>
                         <div className="form-group mb-4">
@@ -105,8 +123,10 @@ function AddVideo() {
 
                             </label>
                             <input type="file" name="video" required
+                                   accept="video/mp4"
                                    className="form-control"
                                    onChange={(e) => setValue('video', e.target.files[0])}/>
+                            <span style={{color: 'red'}}>Only Accept mp4 files </span>
                         </div>
                         <div className="form-group mb-4">
                             <button className="btn btn-success">

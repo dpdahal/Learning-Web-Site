@@ -24,5 +24,7 @@ lvRoute.post("/", upload.single('video'), lvInstance.store);
 lvRoute.get("/:id", lvInstance.show);
 lvRoute.put("/", upload.single('video'), lvInstance.update);
 lvRoute.delete("/:id", lvInstance.destroy);
+lvRoute.get('/video/:type', lvInstance.showVideoForUser);
+
 
 export default lvRoute;

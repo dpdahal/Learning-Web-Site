@@ -29,6 +29,7 @@ class LearningVideoController {
         let id = req.body.id;
         let type = req.body.type;
         let title = req.body.title;
+        let price = req.body.price;
         let description = req.body.description;
         let findData = await LearningVideo.findById(id);
         let videoUrl = "";
@@ -43,6 +44,7 @@ class LearningVideoController {
                     return await LearningVideo.findByIdAndUpdate(id, {
                         type,
                         title,
+                        price,
                         description,
                         videoUrl: videoUrl
                     }).then((banner) => {
@@ -54,6 +56,7 @@ class LearningVideoController {
                     return await LearningVideo.findByIdAndUpdate(id, {
                         type,
                         title,
+                        price,
                         description,
                         image: findData.image
                     }).then((banner) => {
@@ -66,6 +69,7 @@ class LearningVideoController {
                 return await LearningVideo.findByIdAndUpdate(id, {
                     type,
                     title,
+                    price,
                     description,
                     videoUrl: findData.videoUrl
                 }).then((banner) => {
@@ -78,6 +82,7 @@ class LearningVideoController {
             return await LearningVideo.findByIdAndUpdate(id, {
                 type,
                 title,
+                price,
                 description,
                 videoUrl: findData.videoUrl
             }).then((banner) => {
@@ -121,6 +126,13 @@ class LearningVideoController {
                 return res.json(err);
             }
         }
+    }
+
+    async showVideoForUser(req, res) {
+        let type = req.params.type;
+        console.log(type)
+        let video = await LearningVideo.find({type: type});
+        return res.status(200).json({video:video});
     }
 
 }
