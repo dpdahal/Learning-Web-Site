@@ -118,7 +118,7 @@ class QuestionController {
         }
     }
 
-    async checkAnswer(req, res) {
+    async checkPlayingTimeAnswer(req, res) {
         let questionId = req.body.questionId;
         let answer = req.body.answer;
         await QuizQuestion.findById(questionId).then((question) => {
@@ -141,6 +141,39 @@ class QuestionController {
         }).catch((err) => {
             return res.json(err);
         });
+
+    }
+
+    async checkAnswer(req, res) {
+        try {
+            let loginUserId = req.body.userId;
+            let answerData = await QuizAnswer.find({userId: loginUserId})
+                .populate("userId")
+                .populate("questionId");
+            let questions = [];
+            let yourAnswers = [];
+            let correctAnswers = [];
+
+            answerData.forEach((answer) => {
+                questions.push(answer.questionId);
+                yourAnswers.push(answer.answer);
+                let options = answer.questionId.options;
+                options.forEach((option) => {
+                    if (option.isCorrect) {
+                        correctAnswers.push(option.option);
+                    }
+                });
+
+            });
+            return res.status(200).json({
+                questions: questions,
+                yourAnswers: yourAnswers,
+                correctAnswers: correctAnswers
+            });
+
+        } catch (e) {
+            return res.json(e);
+        }
 
     }
 

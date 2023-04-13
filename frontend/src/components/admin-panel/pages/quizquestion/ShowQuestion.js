@@ -87,19 +87,19 @@ function ShowQuestions() {
                                         <td>{impQuestion.type}</td>
                                         <td>{impQuestion.prompt}</td>
                                         <td>
-                                            {impQuestion.optionA}
+                                            {impQuestion.options[0].option}
                                             <br/>
                                             <img src={impQuestion.optionAImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionB}
+                                        <td>{impQuestion.options[1].option}
                                             <br/>
                                             <img src={impQuestion.optionBImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionC}
+                                        <td>{impQuestion.options[2].option}
                                             <br/>
                                             <img src={impQuestion.optionCImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionD}
+                                        <td>{impQuestion.options[3].option}
                                             <br/>
                                             <img src={impQuestion.optionDImage} width='50' alt="image not found"/>
                                         </td>

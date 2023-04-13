@@ -18,8 +18,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 qRoute.get('/', qInstance.index);
-qRoute.post('/check-playing', qInstance.checkAnswer);
+qRoute.post('/check-playing', qInstance.checkPlayingTimeAnswer);
 qRoute.post('/insert-answer', qInstance.insertAnswer);
+qRoute.post('/check-answer', qInstance.checkAnswer);
+
 
 qRoute.post('/', upload.fields([
     {name: 'image'},

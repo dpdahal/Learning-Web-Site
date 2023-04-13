@@ -39,6 +39,7 @@ function QuizQuestionAnswer() {
                         console.log(err);
                     })
                 } else {
+                    sendData.userId = user._id;
                     api.post('http://localhost:8000/question/insert-answer', sendData).then((response) => {
                         console.log(response);
                     }).catch((err) => {
