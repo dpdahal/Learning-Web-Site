@@ -52,44 +52,57 @@ function LoginComponents() {
 
     return (
         <React.Fragment>
-            <div className="container login-page mt-5 mt-5 mb-5">
-                <div className="row  justify-content-center">
-                    <div className="col-md-4 mb-4">
-                        <h1>Sajilo Pathsala</h1>
-                        <hr/>
-                        <h1>Login</h1>
+            <div className="container mt-5 mt-5 mb-5">
+                <div className="login-page">
+                    <div className="row  justify-content-center">
+                        <div className="col-md-4 mb-4">
+                            <h1>Sajilo Pathsala Login</h1>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center">
+                        <div className="col-md-5">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="form-group mb-4">
+                                    <label>Email:
+                                        {errors.email && <a style={pStyle}>{errors.email.message}</a>}
+                                    </label>
+                                    <input {...register("email")} type="email" className="form-control"/>
+
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label>Password:
+                                        {errors.password && <a style={pStyle}>{errors.password.message}</a>}
+                                    </label>
+                                    <input {...register("password")} type="password" className="form-control"/>
+
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <div className="form-group mb-5">
+                                            <button className="login-btn">
+                                                <i className="bi bi-file-lock-fill"></i> Login
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group mb-5">
+                                            <Link to="/register">Sign up Account</Link>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group mb-5">
+
+                                            <div className="form-group mb-5">
+                                                <Link to="/forgot-password">Forgot Password</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-md-4">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="form-group mb-4">
-                                <label>Email:
-                                    {errors.email && <a style={pStyle}>{errors.email.message}</a>}
-                                </label>
-                                <input {...register("email")} type="email" className="form-control"/>
-
-                            </div>
-                            <div className="form-group mb-4">
-                                <label>Password:
-                                    {errors.password && <a style={pStyle}>{errors.password.message}</a>}
-                                </label>
-                                <input {...register("password")} type="password" className="form-control"/>
-
-                            </div>
-                            <div className="form-group mb-5">
-                                <button className="login-btn">
-                                    <i className="bi bi-file-lock-fill"></i> Login
-                                </button>
-                                <Link to="/register" className="float-end">Sign up Account</Link>
-                            </div>
-                            <div className="form-group mb-5">
-                                <Link to="/forgot-password">Forgot Password</Link>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </React.Fragment>
     );

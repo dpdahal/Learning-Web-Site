@@ -1,12 +1,26 @@
-.login-btn{
-    min-width:120px;
-    background-color: rgb(3, 26, 114);
+.login-btn {
+    min-width: 120px;
+    background-color: rgb(119, 0, 121);
     color: white;
     height: 40px;
     border: none;
     border-radius: 5px;
 }
 
-.login-page{
-   margin-top: 100px;
+.login-page {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    margin-top: 150px;
+}
+
+.login-page h1{
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-page a{
+    text-decoration: none;
 }

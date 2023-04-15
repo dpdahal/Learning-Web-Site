@@ -49,6 +49,47 @@ function ShowQuestions() {
         navigate(`/update-imp-question/${id}`);
     }
 
+    if(questions.length === 0) return (<React.Fragment>
+        <AdminHeaderComponents/>
+        <AdminAsideComponents/>
+        <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
+            <div className="row">
+                <div className="col-md-12 mb-4">
+                    <h1 className="card-title-dp">
+                        <i className="bi bi-bag-plus-fill"></i> Quiz Question List
+                        <Link to={`/add-question`} className="btn btn-primary float-end">
+                            <i className="bi bi-calendar-check-fill"></i> Add  Question
+                        </Link>
+
+                    </h1>
+                    <hr/>
+                </div>
+                <div className="col-md-12">
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Prompt</th>
+                            <th>Option A</th>
+                            <th>Option B</th>
+                            <th>Option C</th>
+                            <th>Option D</th>
+                            <th>Images</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colSpan="9" className="text-center">No data found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </React.Fragment>);
+
     return (<React.Fragment>
             <AdminHeaderComponents/>
             <AdminAsideComponents/>
@@ -85,21 +126,21 @@ function ShowQuestions() {
                                     <tr key={index}>
                                         <td>{++index}</td>
                                         <td>{impQuestion.type}</td>
-                                        <td>{impQuestion.prompt}</td>
+                                        <td>{impQuestion.question}</td>
                                         <td>
-                                            {impQuestion.options[0].option}
+                                            {impQuestion.optionsOne}
                                             <br/>
                                             <img src={impQuestion.optionAImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.options[1].option}
+                                        <td>{impQuestion.optionsTwo}
                                             <br/>
                                             <img src={impQuestion.optionBImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.options[2].option}
+                                        <td>{impQuestion.optionsThree}
                                             <br/>
                                             <img src={impQuestion.optionCImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.options[3].option}
+                                        <td>{impQuestion.optionsFour}
                                             <br/>
                                             <img src={impQuestion.optionDImage} width='50' alt="image not found"/>
                                         </td>

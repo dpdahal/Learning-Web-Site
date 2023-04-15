@@ -127,3 +127,8 @@ body {
 .profile{
     color: white;
 }
+
+.question-add-page p{
+    margin: 0;
+    padding: 0;
+}

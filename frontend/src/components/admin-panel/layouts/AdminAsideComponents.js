@@ -65,7 +65,14 @@ function AdminAsideComponents() {
                                     <i className="bi bi-images"></i> Important Question
                                 </Link>
                             </li>
-                            : ''}
+                            :
+                            <li className="nav-item">
+                                <Link to='/show-important-question-for-user' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-images"></i> Important Question
+                                </Link>
+                            </li>
+                        }
                         {user.role === 'admin' ?
                             <li className="nav-item">
                                 <Link to='/show-video' className="nav-link" href="#">

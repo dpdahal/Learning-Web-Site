@@ -63,14 +63,16 @@ function AddUserComponents() {
     return (
         <React.Fragment>
             <div className="container mb-5 mt-5">
-                <div className="row">
-                    <div className="col-md-12 mb-4">
-                        <h1 className="card-title-dp">Sign up Account</h1>
+                <div className="row  justify-content-center">
+                    <div className="col-md-8 mb-4">
+                        <h1 className="card-title-dp">
+                            Create Account For Sajilo Pathsala
+                        </h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <form action="users" onSubmit={handleSubmit(insertUser)}>
+                <div className="row justify-content-center">
+                    <div className="col-md-8 mt-5">
+                        <form action="" onSubmit={handleSubmit(insertUser)}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group mb-3">

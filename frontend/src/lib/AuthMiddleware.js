@@ -12,7 +12,7 @@ function AuthMiddleware() {
     useEffect(() => {
         dispatch(getAuthUser(window.user._id));
     });
-    return isLogged ? <Outlet/> : <Navigate to=""/>;
+    return isLogged ? <Outlet/> : window.location.href = "/";
 }
 
 export default AuthMiddleware;

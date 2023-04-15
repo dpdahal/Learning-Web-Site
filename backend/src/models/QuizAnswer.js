@@ -9,9 +9,11 @@ const QuizAnswerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Question",
     },
-    answer: {
-        type: String,
-        required: true,
-    }
+    answer: [
+        {
+            type: String,
+            required: true
+        }
+    ],
 });
 export default mongoose.model("QuizAnswer", QuizAnswerSchema);

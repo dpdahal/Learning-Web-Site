@@ -1,240 +1,353 @@
-import React from 'react';
-import * as yup from "yup";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import Swal from "sweetalert2";
+import React, {useState} from "react";
 import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
-import {Link} from "react-router-dom";
 import api from "../../../../lib/api";
 
+const AddQuestion = () => {
+    const [type, setType] = useState("");
+    const [typeError, setTypeError] = useState("");
+    const [question, setQuestion] = useState("");
+    const [questionError, setQuestionError] = useState("");
+    const [image, setImage] = useState("");
 
-const lvSchema = yup.object().shape({
-    type: yup.string().required(),
-    prompt: yup.string().required(),
-    option1: yup.string().required(),
-    option2: yup.string().required(),
-    option3: yup.string().required(),
-    option4: yup.string().required(),
-    answer: yup.string().required(),
-});
+    const typeInput = (event) => {
+        setType(event.target.value);
+        setTypeError("");
+    }
+    const questionInput = (event) => {
+        setQuestion(event.target.value);
+        setQuestionError("");
+    }
+    const imageInput = (event) => {
+        setImage(event.target.files[0]);
 
-function AddQuestion() {
-    const {
-        setValue,
-        register,
-        handleSubmit,
-        reset,
-        formState: {errors}
-    } = useForm({
-        resolver: yupResolver(lvSchema)
-    });
-    let pStyle = {
-        color: "#f60000",
+    }
+    /*
+    ======================Option One=====================
+     */
+    const [optionOne, setOptionOne] = useState("");
+    const [optionOneFile, setOptionOneFile] = useState(null);
+    const [optionOneError, setOptionOneError] = useState("");
+    const handleOptionOne = (event) => {
+        setOptionOne(event.target.value);
+        setOptionOneFile(null);
+        setOptionOneError("");
+    };
+    const handleOptionOneImage = (event) => {
+        setOptionOneFile(event.target.files[0]);
+        setOptionOne("");
+        setOptionOneError("");
+    };
+
+    /*
+    ======================End Option One=====================
+     */
+
+    /*
+    ======================Option Two=====================
+     */
+
+    const [optionTwo, setOptionTwo] = useState("");
+    const [optionTwoFile, setOptionTwoFile] = useState(null);
+    const [optionTwoError, setOptionTwoError] = useState("");
+    const handleOptionTwo = (event) => {
+        setOptionTwo(event.target.value);
+        setOptionTwoFile(null);
+        setOptionTwoError("");
+    };
+    const handleOptionTwoImage = (event) => {
+        setOptionTwoFile(event.target.files[0]);
+        setOptionTwo("");
+        setOptionTwoError("");
+    };
+
+
+    /*
+      ======================End Option Two=====================
+       */
+
+    /*
+    ======================Option Three=====================
+     */
+
+    const [optionThree, setOptionThree] = useState("");
+    const [optionThreeFile, setOptionThreeFile] = useState(null);
+    const [optionThreeError, setOptionThreeError] = useState("");
+    const handleOptionThree = (event) => {
+        setOptionThree(event.target.value);
+        setOptionThreeFile(null);
+        setOptionThreeError("");
+    };
+    const handleOptionThreeImage = (event) => {
+        setOptionThreeFile(event.target.files[0]);
+        setOptionThree("");
+        setOptionThreeError("");
+    };
+
+    /*
+     ======================End Option Three=====================
+      */
+
+    /*
+    ======================Option Four=====================
+     */
+
+    const [optionFour, setOptionFour] = useState("");
+    const [optionFourFile, setOptionFourFile] = useState(null);
+    const [optionFourError, setOptionFourError] = useState("");
+    const handleOptionFour = (event) => {
+        setOptionFour(event.target.value);
+        setOptionFourFile(null);
+        setOptionFourError("");
+    }
+    const handleOptionFourImage = (event) => {
+        setOptionFourFile(event.target.files[0]);
+        setOptionFour("");
+        setOptionFourError("");
     }
 
-    const addVideo = (data) => {
-        let sendData = new FormData();
-        sendData.append('type', data.type);
-        sendData.append('prompt', data.prompt);
-        sendData.append("image", data.image ?? "");
-        sendData.append('option1', data.option1)
-        sendData.append('option2', data.option2)
-        sendData.append('option3', data.option3)
-        sendData.append('option4', data.option4)
-        sendData.append("optionAImage", data.optionAImage ?? "");
-        sendData.append("optionBImage", data.optionBImage ?? "");
-        sendData.append("optionCImage", data.optionCImage ?? "");
-        sendData.append("optionDImage", data.optionDImage ?? "");
-        sendData.append('answer', data.answer)
-        api.post('/question', sendData, {
+    /*
+        ======================End Option Four=====================
+     */
+
+    const [checked, setChecked] = useState([]);
+    const handleToggle = (c) => () => {
+        const currentCategoryId = checked.indexOf(c);
+        const newCheckedCategoryId = [...checked];
+        if (currentCategoryId === -1) {
+            newCheckedCategoryId.push(c);
+        } else {
+            newCheckedCategoryId.splice(currentCategoryId, 1);
+        }
+
+        setChecked(newCheckedCategoryId);
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (type.trim() === "") {
+            setTypeError("Please select type.");
+        }
+        if (question.trim() === "") {
+            setQuestionError("Please fill in question.");
+        }
+        if (optionOne.trim() === "" && !optionOneFile) {
+            setOptionOneError("Please fill in at least one field.");
+        }
+        if (optionTwo.trim() === "" && !optionTwoFile) {
+            setOptionTwoError("Please fill in at least one field.");
+        }
+        if (optionThree.trim() === "" && !optionThreeFile) {
+            setOptionThreeError("Please fill in at least one field.");
+        }
+        if (optionFour.trim() === "" && !optionFourFile) {
+            setOptionFourError("Please fill in at least one field.");
+        }
+
+        let formData = new FormData();
+        formData.append("type", type);
+        formData.append("question", question);
+        formData.append("optionOne", optionOne);
+        formData.append('image', image ?? "");
+        formData.append("optionAImage", optionOneFile ?? "");
+        formData.append("optionTwo", optionTwo);
+        formData.append("optionBImage", optionTwoFile ?? "");
+        formData.append("optionThree", optionThree);
+        formData.append("optionCImage", optionThreeFile ?? "");
+        formData.append("optionFour", optionFour);
+        formData.append("optionDImage", optionFourFile ?? "");
+        formData.append("answer", checked);
+        api.post("/question", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        }).then((response) => {
-            if (response.data.success) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Question has been added successfully',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                reset();
-            } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Something went wrong',
-                })
-            }
-        }).catch((err) => {
-            console.log(err)
+        })
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+            console.log(error);
         })
 
 
-    }
-    return (<React.Fragment>
+    };
+
+
+    return (
+        <div>
             <AdminHeaderComponents/>
             <AdminAsideComponents/>
             <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
-                <div className="row">
-                    <div className="col-md-12 mb-2">
-                        <h1>
-                            <i className="bi bi-bag-plus-fill"></i> Add Question
-                            <Link to="/show-question" className="btn btn-primary float-end">
-                                <i className="bi bi-arrow-right-square-fill"></i> Show Question
-                            </Link>
-                        </h1>
-                        <hr/>
+                <div className="container question-add-page">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h1 className="text-center">Add Question</h1>
+                        </div>
+                        <div className="col-md-12">
+                            <form onSubmit={handleSubmit}>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="title">Type:
+                                                {typeError && <span className="text-danger"> {typeError}</span>}
+                                            </label>
+                                            <select name="type" onChange={typeInput}
+                                                    className="form-control form-control-sm">
+                                                <option value="">Select Type</option>
+                                                <option value="MBBS">MBBS</option>
+                                                <option value="Engineering">Engineering</option>
+                                                <option value="LokSewa">LokSewa</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="question">Question:
+                                                {questionError && <span className="text-danger"> {questionError}</span>}
+                                            </label>
+                                            <input type="text" className="form-control form-control-sm"
+                                                   onChange={questionInput}
+                                                   id="question"
+                                                   placeholder="Enter Question"/>
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="image">Prompt Image:</label>
+                                            <input type="file" name="image"
+                                                   onChange={imageInput}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="option1">Option 1</label>
+                                            <input type="text" value={optionOne}
+                                                   onChange={handleOptionOne}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="optionOneImage">Option 1 Image</label>
+                                            <input type="file" onChange={handleOptionOneImage}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <div className="form-group">
+                                            <label htmlFor="optionOneCorrect">Is Correct</label>
+                                            <br/>
+                                            <input type="checkbox" onChange={handleToggle(1)}/>
+                                        </div>
+
+                                    </div>
+                                    <div className="col-md-12">
+                                        {optionOneError && <p className="text-danger text-center">{optionOneError}</p>}
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="option2">Option 2</label>
+                                            <input type="text" value={optionTwo}
+                                                   onChange={handleOptionTwo}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="optionOneImage">Option 2 Image</label>
+                                            <input type="file" onChange={handleOptionTwoImage}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <div className="form-group">
+                                            <label htmlFor="optionTowCorrect">Is Correct</label>
+                                            <br/>
+                                            <input type="checkbox" onChange={handleToggle(2)}/>
+                                        </div>
+
+                                    </div>
+                                    <div className="col-md-12">
+                                        {optionTwoError && <p className="text-danger text-center">{optionTwoError}</p>}
+                                    </div>
+                                </div>
+                                <div className="row">
+
+                                    <div className="col-md-6">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="option3">Option 3</label>
+                                            <input type="text" value={optionThree}
+                                                   onChange={handleOptionThree}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="optionThreeImage">Option 3 Image</label>
+                                            <input type="file" onChange={handleOptionThreeImage}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <div className="form-group">
+                                            <label htmlFor="optionThreeCorrect">Is Correct</label>
+                                            <br/>
+                                            <input type="checkbox" onChange={handleToggle(3)}/>
+                                        </div>
+
+                                    </div>
+                                    <div className="col-md-12">
+                                        {optionThreeError &&
+                                            <p className="text-danger text-center">{optionThreeError}</p>}
+                                    </div>
+                                </div>
+                                <div className="row">
+
+                                    <div className="col-md-6">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="option4">Option 4</label>
+                                            <input type="text" value={optionFour}
+                                                   onChange={handleOptionFour}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="form-group  mt-2">
+                                            <label htmlFor="optionFourImage">Option 4 Image</label>
+                                            <input type="file" onChange={handleOptionFourImage}
+                                                   className="form-control form-control-sm"/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <div className="form-group">
+                                            <label htmlFor="optionFourCorrect">Is Correct</label>
+                                            <br/>
+                                            <input type="checkbox" onChange={handleToggle(4)}/>
+                                        </div>
+
+                                    </div>
+                                    <div className="col-md-12">
+                                        {optionFourError &&
+                                            <p className="text-danger text-center">{optionFourError}</p>}
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-md-12 mt-3">
+                                        <button className="btn btn-success">Add Quiz Question</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div className="col-md-12">
-                        <form action="" onSubmit={handleSubmit(addVideo)}>
-                            <div className="form-group mb-2">
-                                <label htmlFor="title">Type:
-                                    {errors.type && <a style={pStyle}>{errors.type.message}</a>}
-                                </label>
-                                <select name="type" {...register("type")} className="form-control form-control-sm">
-                                    <option value="">Select Type</option>
-                                    <option value="MBBS">MBBS</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="LokSewa">LokSewa</option>
-                                </select>
-                            </div>
-                            <div className="form-group mb-2">
-                                <label htmlFor="Prompt">Prompt:
-                                    {errors.prompt && <a style={pStyle}>{errors.prompt.message}</a>}
-                                </label>
-                                <input type="text" name="prompt"
-                                       {...register("prompt")}
-                                       className="form-control form-control-sm"/>
-                            </div>
 
-
-                            <div className="form-group mb-2">
-                                <label htmlFor="image">Prompt Image:
-
-                                </label>
-                                <input type="file" name="image"
-                                       className="form-control form-control-sm"
-                                       onChange={(e) => setValue('image', e.target.files[0])}/>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="option1">Option 1:
-                                            {errors.option1 && <a style={pStyle}>{errors.option1.message}</a>}
-                                        </label>
-                                        <input type="text" name="option1"
-                                               {...register("option1")}
-                                               className="form-control form-control-sm"/>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="optionAImage">Option A Image:
-
-                                        </label>
-                                        <input type="file" name="optionAImage"
-                                               className="form-control form-control-sm"
-                                               onChange={(e) => setValue('optionAImage', e.target.files[0])}/>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="option2">Option 2:
-                                            {errors.option2 && <a style={pStyle}>{errors.option2.message}</a>}
-                                        </label>
-                                        <input type="text" name="option2"
-                                               {...register("option2")}
-                                               className="form-control form-control-sm"/>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="optionBImage">optionBImage:
-
-                                        </label>
-                                        <input type="file" name="optionBImage"
-                                               className="form-control form-control-sm"
-                                               onChange={(e) => setValue('optionBImage', e.target.files[0])}/>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="option3">Option 3:
-                                            {errors.option3 && <a style={pStyle}>{errors.option3.message}</a>}
-                                        </label>
-                                        <input type="text" name="option3"
-                                               {...register("option3")}
-                                               className="form-control form-control-sm"/>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="optionCImage">optionCImage:
-
-                                        </label>
-                                        <input type="file" name="optionCImage"
-                                               className="form-control form-control-sm"
-                                               onChange={(e) => setValue('optionCImage', e.target.files[0])}/>
-
-                                    </div>
-                                </div>
-
-
-                                <div className="col-md-6">
-                                    <div className="form-group mb-2">
-                                        <label htmlFor="option4">Option 4:
-                                            {errors.option4 && <a style={pStyle}>{errors.option4.message}</a>}
-                                        </label>
-                                        <input type="text" name="option4"
-                                               {...register("option4")}
-                                               className="form-control"/>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group mb-4">
-                                        <label htmlFor="optionDImage">optionDImage:
-
-                                        </label>
-                                        <input type="file" name="optionDImage"
-                                               className="form-control form-control-sm"
-                                               onChange={(e) => setValue('optionDImage', e.target.files[0])}/>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group mb-3">
-                                <label htmlFor="answer">Answer: {errors.answer &&
-                                    <a style={pStyle}>{errors.answer.message}</a>}</label>
-                                <select name="answer" {...register("answer")} className="form-control form-control-sm"
-                                        id="answer">
-                                    <option value="">Select Answer</option>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
-                                    <option value="option4">Option 4</option>
-                                </select>
-                            </div>
-                            <div className="form-group mb-4">
-                                <button className="btn btn-success">
-                                    <i className="bi bi-bag-plus-fill"></i> Add Question
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
                 </div>
+
             </main>
-        </React.Fragment>
-    )
-}
+        </div>
+    );
+};
 
 export default AddQuestion;
-
 

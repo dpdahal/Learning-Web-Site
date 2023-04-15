@@ -31,6 +31,7 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 import QuizQuestionAnswer from "../admin-panel/pages/quizquestion/QuizQuestionAnswer";
 import CheckQuizAnswer from "../admin-panel/pages/quizquestion/CheckQuizAnswer";
+import ShowImportantQuestionListForUser from "../admin-panel/pages/importantquestion/ShowImportantQuestionListForUser";
 
 function RouterComponents() {
     return (
@@ -54,6 +55,9 @@ function RouterComponents() {
 
                     <Route path="/show-video-for-user/" element={<ShowVideoListForUser/>}/>
                     <Route path="/show-video-for-user-type/:type" element={<ShowVideoDetailsForUser/>}/>
+
+
+                    <Route path="/show-important-question-for-user" element={<ShowImportantQuestionListForUser/>}/>
 
 
                     <Route element={<RoleMiddleware/>}>

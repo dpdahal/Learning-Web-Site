@@ -1,41 +1,55 @@
 import mongoose from "mongoose";
 
 const QuestionSchema = new mongoose.Schema({
-    type: {
-        type: String,
-        enum: ['MBBS', 'Engineering', 'LokSewa'],
-        required: true
-    },
-    prompt: {
-        type: String,
-        required: false,
-    },
-    image: {
-        type: String,
-        required: false,
-    },
-    options: {
-        type: [Object],
-        required: true,
-    },
+        type: {
+            type: String,
+            enum: ['MBBS', 'Engineering', 'LokSewa'],
+            required: true
+        },
+        question: {
+            type: String,
+            required: false,
+        },
+        image: {
+            type: String,
+            required: false,
+        },
+        optionOne: {
+            type: String,
+        },
+        optionTwo: {
+            type: String,
+        },
+        optionThree: {
+            type: String,
+        },
+        optionFour: {
+            type: String,
+        },
+        answer: [
+            {
+                type: String,
+                required: true
+            }
+        ],
 
-    optionAImage: {
-        type: String,
-        required: false
+        optionAImage: {
+            type: String,
+            required: false
+        },
+        optionBImage: {
+            type: String,
+            required: false
+        },
+        optionCImage: {
+            type: String,
+            required: false
+        },
+        optionDImage: {
+            type: String,
+            required: false
+        }
     },
-    optionBImage: {
-        type: String,
-        required: false
-    },
-    optionCImage: {
-        type: String,
-        required: false
-    },
-    optionDImage: {
-        type: String,
-        required: false
-    }
-},
     {
         versionKey: false,
     });
