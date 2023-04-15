@@ -42,7 +42,7 @@ class QuestionController {
             }
 
 
-            let answer  = req.body.answer.split(",");
+            let answer = req.body.answer.split(",");
             console.log(answer);
 
             return await QuizQuestion.create({
@@ -121,24 +121,20 @@ class QuestionController {
                 .populate("userId")
                 .populate("questionId");
             let questions = [];
-            let yourAnswers = [];
-            let correctAnswers = [];
+            let yourAnswer = [];
+            let correctAnswer = [];
 
             answerData.forEach((answer) => {
+                let options = answer.questionId.answer;
                 questions.push(answer.questionId);
-                yourAnswers.push(answer.answer);
-                let options = answer.questionId.options;
-                options.forEach((option) => {
-                    if (option.isCorrect) {
-                        correctAnswers.push(option.option);
-                    }
-                });
-
+                yourAnswer.push(answer.answer);
+                correctAnswer.push(options);
             });
+
             return res.status(200).json({
                 questions: questions,
-                yourAnswers: yourAnswers,
-                correctAnswers: correctAnswers
+                yourAnswer: yourAnswer,
+                correctAnswer: correctAnswer
             });
 
         } catch (e) {

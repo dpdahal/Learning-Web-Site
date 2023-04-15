@@ -17,8 +17,8 @@ function CheckQuizAnswer() {
         }
         const response = await api.post("/question/check-answer", sendData);
         setQuestions(response.data.questions);
-        setYourAnswers(response.data.yourAnswers);
-        setCorrectAnswers(response.data.correctAnswers);
+        setYourAnswers(response.data.yourAnswer);
+        setCorrectAnswers(response.data.correctAnswer);
     }
 
 
@@ -26,6 +26,50 @@ function CheckQuizAnswer() {
         getQuestions();
 
     }, []);
+
+    const yourAnswerSeparateByComma = (answer) => {
+        let yourAnswer = "";
+        answer.forEach((ans) => {
+            yourAnswer += ans + ", ";
+        });
+        return yourAnswer;
+    }
+
+    const correctAnswerSeparateByComma = (answer) => {
+        let correctAnswer = "";
+        answer.forEach((ans) => {
+            correctAnswer += ans + ", ";
+        });
+        return correctAnswer;
+    }
+
+    let totalCorrectAnswer = 0;
+    let totalWrongAnswer = 0;
+
+    if (questions.length > 0) {
+        for (let i = 0; i < questions.length; i++) {
+            let correctAnswer = correctAnswers[i];
+            let yourAnswer = yourAnswers[i];
+            let isCorrect = true;
+            for (let j = 0; j < correctAnswer.length; j++) {
+                if (correctAnswer[j] !== yourAnswer[j]) {
+                    isCorrect = false;
+                }
+            }
+
+            if (isCorrect) {
+                totalCorrectAnswer++;
+            } else {
+                totalWrongAnswer++;
+            }
+        }
+    }
+
+    let score = (totalCorrectAnswer / questions.length) * 100;
+    // get only two decimal
+    score = score.toFixed(2);
+    console.log(score);
+
 
     if (questions.length === 0) {
         return (
@@ -53,46 +97,43 @@ function CheckQuizAnswer() {
             <AdminAsideComponents/>
             <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
                 <div className="row">
+                    <div className="col-md-12 mb-4">
+                        <h2>Your Answers</h2>
+                    </div>
                     <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <h2 className="text-center">Your Answers</h2>
-                                <table className="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Question</th>
-                                        <th>Your Answer</th>
-                                        <th>Correct Answer</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {questions.map((question, index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td>{question.prompt}</td>
-                                                <td>{yourAnswers[index]}
-                                                    {yourAnswers[index] === correctAnswers[index] ?
-                                                        <button className="btn btn-success btn-sm"><i
-                                                            className="bi bi-check"></i></button>
-                                                        :
-                                                        <button className="btn btn-danger btn-sm">
-                                                            <i className="bi bi-x-circle-fill"></i>
-                                                        </button>
-                                                    }
 
-                                                </td>
-                                                <td>
-                                                    {correctAnswers[index]}
-                                                    <button className="btn btn-success btn-sm"><i
-                                                        className="bi bi-check"></i></button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <table className="table table-hover">
+                            <thead>
+                            <tr className="bg-primary text-light">
+                                <th>S.n</th>
+                                <th>Question</th>
+                                <th>Your Answer</th>
+                                <th>Correct Answer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {questions.map((question, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>#</td>
+                                        <td>{question.question}</td>
+                                        <td>
+                                            {yourAnswerSeparateByComma(yourAnswers[index])}
+                                        </td>
+                                        <td>
+                                            {correctAnswerSeparateByComma(correctAnswers[index])}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            <tr className="bg-info">
+                                <td></td>
+                                <td></td>
+                                <td>Total Correct Answer: {totalCorrectAnswer}</td>
+                                <td>Total Wrong Answer: {totalWrongAnswer}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </main>

@@ -1,12 +1,16 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import api from "../../../../lib/api";
+import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
+import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 
-function Demo() {
+function QuizQuestionAnswer() {
     const [checkedItems, setCheckedItems] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(3000);
     const [questionsList, setQuestionsList] = useState([]);
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
 
     let getQuestions = () => {
         api.get('/question').then((response) => {
@@ -48,9 +52,12 @@ function Demo() {
         let questionId = questionsList[currentIndex]._id;
         let sendAnswer = {
             questionId: questionId,
+            userId: user._id,
             answer: selectedOptions
         }
-        console.log(sendAnswer);
+        api.post('/question/insert-answer', sendAnswer).then((response) => {
+            console.log(response);
+        });
         setCheckedItems({});
     }
 
@@ -65,146 +72,166 @@ function Demo() {
     }
 
     return (
-        <div className="container">
-            <h2>Checkbox Form</h2>
-            <p>Time left: {timeLeft} seconds</p>
-            <p>Score: {score}</p>
-            {questionsList.map((options, index) => (
-                index === currentIndex && (
-                    <div key={index} className="col-md-12">
-                        <h3>{options.question}</h3>
-                        <div className="row mt-4">
-                            <div className="col-md-6">
-                                {options.optionOne ?
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="1"
-                                                id="1"
-                                                checked={checkedItems[1] || false}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                            {options.optionOne}
-                                        </label>
-
-                                    </div>
-                                    :
-                                    <div>
-                                        <img src={options.optionAImage} width="100%" height="200" alt=""/>
-                                        <label>
-                                            <input
-                                                type="checkbox" value="1" id="1"
-                                                checked={checkedItems[1] || false}
-                                                onChange={handleCheckboxChange}/>
-                                        </label>
-
-                                    </div>
-                                }
-                            </div>
-                            <div className="col-md-6">
-                                {options.optionTwo ?
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="2"
-                                                id="2"
-                                                checked={checkedItems[2] || false}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                            {options.optionTwo}
-                                        </label>
-                                    </div>
-                                    :
-                                    <div>
-                                        <img src={options.optionBImage} width="100%" height="200" alt=""/>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="2" id="2" checked={checkedItems[2] || false}
-                                                onChange={handleCheckboxChange}/>
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                            <div className="col-md-6">
-                                {options.optionThree ?
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="3" id="3"
-                                                checked={checkedItems[3] || false}
-                                                onChange={handleCheckboxChange}/>
-                                            {options.optionThree}
-                                        </label>
-                                    </div>
-                                    :
-                                    <div>
-                                        <img src={options.optionCImage} width="100%" height="200" alt=""/>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="3"
-                                                id="3"
-                                                checked={checkedItems[3] || false}
-                                                onChange={handleCheckboxChange}/>
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                            <div className="col-md-6">
-                                {options.optionFour ?
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="4"
-                                                id="4"
-                                                checked={checkedItems[4] || false}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                            {options.optionFour}
-                                        </label>
-                                    </div>
-                                    :
-                                    <div>
-                                        <img src={options.optionDImage} width="100%" height="200" alt=""/>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="4"
-                                                id="4"
-                                                checked={checkedItems[4] || false}
-                                                onChange={handleCheckboxChange}/>
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-
+        <React.Fragment>
+            <AdminHeaderComponents/>
+            <AdminAsideComponents/>
+            <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Play Quiz</h2>
+                            <hr/>
+                            <p>Time left: {timeLeft} seconds</p>
+                            <p>Score: {score}</p>
                         </div>
                     </div>
-                )
-            ))}
-            <div className="container mt-4">
+                    <div className="row">
+                        <div className="col-md-12">
+                            {questionsList.map((options, index) => (
+                                index === currentIndex && (
+                                    <div key={index} className="col-md-12">
+                                        <h3>{options.question}</h3>
+                                        <div className="row mt-4">
+                                            <div className="col-md-6">
+                                                {options.optionOne ?
+                                                    <div>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="1"
+                                                                id="1"
+                                                                checked={checkedItems[1] || false}
+                                                                onChange={handleCheckboxChange}
+                                                            />
+                                                            {options.optionOne}
+                                                        </label>
 
-                <button
-                    disabled={currentIndex === 0}
-                    onClick={handlePrevious}
-                >
-                    Previous
-                </button>
-                <button
-                    disabled={currentIndex === questionsList.length - 0}
-                    onClick={handleNext}
-                >
-                    Next
-                </button>
-            </div>
-        </div>
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        <img src={options.optionAImage} width="100%" height="200"
+                                                             alt=""/>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox" value="1" id="1"
+                                                                checked={checkedItems[1] || false}
+                                                                onChange={handleCheckboxChange}/>
+                                                        </label>
+
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="col-md-6">
+                                                {options.optionTwo ?
+                                                    <div>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="2"
+                                                                id="2"
+                                                                checked={checkedItems[2] || false}
+                                                                onChange={handleCheckboxChange}
+                                                            />
+                                                            {options.optionTwo}
+                                                        </label>
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        <img src={options.optionBImage} width="100%" height="200"
+                                                             alt=""/>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="2" id="2" checked={checkedItems[2] || false}
+                                                                onChange={handleCheckboxChange}/>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="col-md-6">
+                                                {options.optionThree ?
+                                                    <div>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="3" id="3"
+                                                                checked={checkedItems[3] || false}
+                                                                onChange={handleCheckboxChange}/>
+                                                            {options.optionThree}
+                                                        </label>
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        <img src={options.optionCImage} width="100%" height="200"
+                                                             alt=""/>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="3"
+                                                                id="3"
+                                                                checked={checkedItems[3] || false}
+                                                                onChange={handleCheckboxChange}/>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="col-md-6">
+                                                {options.optionFour ?
+                                                    <div>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="4"
+                                                                id="4"
+                                                                checked={checkedItems[4] || false}
+                                                                onChange={handleCheckboxChange}
+                                                            />
+                                                            {options.optionFour}
+                                                        </label>
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        <img src={options.optionDImage} width="100%" height="200"
+                                                             alt=""/>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value="4"
+                                                                id="4"
+                                                                checked={checkedItems[4] || false}
+                                                                onChange={handleCheckboxChange}/>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                )
+                            ))}
+                            <div className="container mt-4">
+
+                                <button
+                                    disabled={currentIndex === 0}
+                                    onClick={handlePrevious}
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    disabled={currentIndex === questionsList.length - 0}
+                                    onClick={handleNext}
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </React.Fragment>
     );
 
 }
 
-export default Demo;
+export default QuizQuestionAnswer;

@@ -15,5 +15,7 @@ const QuizAnswerSchema = new mongoose.Schema({
             required: true
         }
     ],
+}, {
+    versionKey: false,
 });
 export default mongoose.model("QuizAnswer", QuizAnswerSchema);
