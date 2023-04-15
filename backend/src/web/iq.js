@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 
 import ImportantQuestionController from "../controllers/ImportantQuestionController.js";
+import bpRoute from "./book.js";
 
 const iqRoute = express.Router();
 let iqInstance = new ImportantQuestionController();
@@ -25,5 +26,7 @@ iqRoute.post("/", upload.single('image'), iqInstance.store);
 iqRoute.get("/:id", iqInstance.show);
 iqRoute.put("/", upload.single('image'), iqInstance.update);
 iqRoute.delete("/:id", iqInstance.destroy);
+iqRoute.get('/show-important-question-for-user/:type', iqInstance.showImportantQuestionForUser);
+
 
 export default iqRoute;

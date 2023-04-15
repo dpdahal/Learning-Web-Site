@@ -132,6 +132,7 @@ function UpdateVideo() {
 
                                 </label>
                                 <input type="file" name="video"
+                                       accept="video/mp4"
                                        className="form-control"
                                        onChange={(e) => setValue('video', e.target.files[0])}/>
                             </div>

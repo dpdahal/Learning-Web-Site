@@ -11,6 +11,10 @@ const bookAndPdfSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
     description: {
         type: String,
         required: true
@@ -24,7 +28,7 @@ const bookAndPdfSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-},{
+}, {
     versionKey: false
 });
 

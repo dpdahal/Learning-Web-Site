@@ -93,14 +93,22 @@ function AdminAsideComponents() {
                             <li className="nav-item">
                                 <Link to='/show-book' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                    <i className="bi bi-book"></i> Book & PDF
+                                    <i className="bi bi-file-earmark-pdf"></i> Book & PDF
+                                </Link>
+                                <Link to='/show-book-for-user-order' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-file-earmark-pdf"></i> Book & PDF Order
                                 </Link>
                             </li>
                             :
                             <li className="nav-item">
                                 <Link to='/show-book-for-user' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                    <i className="bi bi-book"></i> Manage Book & PDF
+                                    <i className="bi bi-file-earmark-pdf"></i> Book & PDF
+                                </Link>
+                                <Link to='/show-book-for-user-order' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-file-earmark-pdf"></i> Book & PDF Order
                                 </Link>
                             </li>
 

@@ -11,6 +11,7 @@ import api from "../../../../lib/api";
 const iqSchema = yup.object().shape({
     type: yup.string().required(),
     title: yup.string().required(),
+    price: yup.number().required(),
     description: yup.string().required(),
 });
 
@@ -34,6 +35,7 @@ function UpdateBook() {
             let iq = response.data.iq;
             setValue("type", iq.type);
             setValue("title", iq.title);
+            setValue("price", iq.price);
             setValue("description", iq.description);
         });
     }
@@ -48,6 +50,7 @@ function UpdateBook() {
         sendData.append('id', params.id);
         sendData.append('type', data.type);
         sendData.append('title', data.title);
+        sendData.append('price', data.price);
         sendData.append('description', data.description);
         sendData.append("image", data.image ?? "");
         api.put("/book/", sendData, {
@@ -93,13 +96,29 @@ function UpdateBook() {
                                     <option value="LokSewa">LokSewa</option>
                                 </select>
                             </div>
-                            <div className="form-group mb-4">
-                                <label htmlFor="title">Title:
-                                    {errors.title && <a style={pStyle}>{errors.title.message}</a>}
-                                </label>
-                                <input type="text" name="title"
-                                       {...register("title")}
-                                       className="form-control"/>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group mb-4">
+                                        <label htmlFor="title">Title:
+                                            {errors.title && <a style={pStyle}>{errors.title.message}</a>}
+                                        </label>
+                                        <input type="text" name="title"
+                                               {...register("title")}
+                                               className="form-control"/>
+                                    </div>
+
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group mb-4">
+                                        <label htmlFor="price">Price:
+                                            {errors.price && <a style={pStyle}>{errors.price.message}</a>}
+                                        </label>
+                                        <input type="number" name="price"
+                                               {...register("price")}
+                                               className="form-control"/>
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div className="form-group mb-4">
@@ -115,6 +134,7 @@ function UpdateBook() {
                                 </label>
                                 <input type="file" name="image"
                                        className="form-control"
+                                       accept="application/pdf"
                                        onChange={(e) => setValue('image', e.target.files[0])}/>
                             </div>
                             <div className="form-group mb-4">

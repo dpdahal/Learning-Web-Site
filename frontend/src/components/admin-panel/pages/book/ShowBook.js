@@ -55,7 +55,7 @@ function ShowBook() {
                 <div className="row">
                     <div className="col-md-12 mb-4">
                         <h1 className="card-title-dp">
-                            <i className="bi bi-bag-plus-fill"></i> Book List
+                            <i className="bi bi-book"></i> Book & PDF
                             <Link to={`/add-book`} className="btn btn-primary float-end">
                                 <i className="bi bi-calendar-check-fill"></i> Add Book
                             </Link>
@@ -70,6 +70,7 @@ function ShowBook() {
                                 <th>ID</th>
                                 <th>Type</th>
                                 <th>Title</th>
+                                <th>Price</th>
                                 <th>Description</th>
                                 <th>Images</th>
                                 <th>Action</th>
@@ -82,6 +83,7 @@ function ShowBook() {
                                         <td>{++index}</td>
                                         <td>{book.type}</td>
                                         <td>{book.title}</td>
+                                        <td>{book.price}</td>
                                         <td>{book.description}</td>
                                         <td>
                                             <a href={`${book.image}`}  download title={book.image}>

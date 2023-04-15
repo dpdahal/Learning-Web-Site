@@ -14,6 +14,7 @@ import api from "../../../../lib/api";
 const iqSchema = yup.object().shape({
     type: yup.string().required(),
     title: yup.string().required(),
+    price: yup.number().required(),
     description: yup.string().required(),
 });
 
@@ -35,6 +36,7 @@ function AddBook() {
         let sendData = new FormData();
         sendData.append('type', data.type);
         sendData.append('title', data.title);
+        sendData.append('price', data.price);
         sendData.append('description', data.description);
         sendData.append("image", data.image ?? "");
         api.post("/book", sendData, {
@@ -85,14 +87,29 @@ function AddBook() {
                                 <option value="LokSewa">LokSewa</option>
                             </select>
                         </div>
-                        <div className="form-group mb-4">
-                            <label htmlFor="title">Title:
-                                {errors.title && <a style={pStyle}>{errors.title.message}</a>}
-                            </label>
-                            <input type="text" name="title"
-                                   {...register("title")}
-                                   className="form-control"/>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group mb-4">
+                                    <label htmlFor="title">Title:
+                                        {errors.title && <a style={pStyle}>{errors.title.message}</a>}
+                                    </label>
+                                    <input type="text" name="title"
+                                           {...register("title")}
+                                           className="form-control"/>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group mb-4">
+                                    <label htmlFor="price">Price:
+                                        {errors.price && <a style={pStyle}>{errors.price.message}</a>}
+                                    </label>
+                                    <input type="number" name="price"
+                                           {...register("price")}
+                                           className="form-control"/>
+                                </div>
+                            </div>
                         </div>
+
                         <div className="form-group mb-4">
                             <label htmlFor="images">PDF Files:
 

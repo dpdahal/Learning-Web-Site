@@ -124,6 +124,15 @@ class ImportantQuestionController {
         }
     }
 
+    async showImportantQuestionForUser(req, res) {
+        try {
+            let type = req.params.type;
+            let iq = await ImportantQuestion.find({type: type});
+            return res.status(200).json({iq: iq});
+        } catch (err) {
+            return res.json(err);
+        }
+    }
 }
 
 export default ImportantQuestionController;

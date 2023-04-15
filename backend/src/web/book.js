@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 
 import BookAndPdfController from "../controllers/BookAndPdfController.js";
+
 const bpRoute = express.Router();
 let pbInstance = new BookAndPdfController();
 
@@ -24,7 +25,20 @@ bpRoute.post("/", upload.single('image'), pbInstance.store);
 bpRoute.get("/:id", pbInstance.show);
 bpRoute.put("/", upload.single('image'), pbInstance.update);
 bpRoute.delete("/:id", pbInstance.destroy);
-
 bpRoute.get('/show-book-for-user/:type', pbInstance.showBookForUser);
+
+/*
+=================Start Payment=================
+ */
+
+bpRoute.post('/book', pbInstance.orderBook)
+bpRoute.post('/booking-confirm', pbInstance.bookingConfirm)
+bpRoute.get('/book/order/show-order-by-login', pbInstance.showOrderByLogin)
+bpRoute.get('/booking/:id', pbInstance.getBooking)
+
+
+/*
+=================End Payment=================
+ */
 
 export default bpRoute;

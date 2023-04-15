@@ -20,7 +20,7 @@ function AdminHeaderComponents() {
                         <div className="nav-item text-nowrap">
                             <button className="logoutBtn px-3"
                                     onClick={logout}>
-                                Sign out Account
+                                Logout
                                 <i className="bi bi-file-earmark-lock2"></i>
 
                             </button>

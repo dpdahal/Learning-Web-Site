@@ -32,6 +32,10 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import QuizQuestionAnswer from "../admin-panel/pages/quizquestion/QuizQuestionAnswer";
 import CheckQuizAnswer from "../admin-panel/pages/quizquestion/CheckQuizAnswer";
 import ShowImportantQuestionListForUser from "../admin-panel/pages/importantquestion/ShowImportantQuestionListForUser";
+import ShowImportantQuestionListForDetails
+    from "../admin-panel/pages/importantquestion/ShowImportantQuestionListForDetails";
+import BookBooking from "../admin-panel/pages/booking/BookBooking";
+import ShowBookForUserOrder from "../admin-panel/pages/book/ShowBookForUserOrder";
 
 function RouterComponents() {
     return (
@@ -47,8 +51,14 @@ function RouterComponents() {
                     <Route path="/update-profile" element={<UpdateUserComponents/>}/>
                     <Route path="/change-password" element={<ChangePasswordComponents/>}/>
                     <Route path="/show-users" element={<ShowUserComponents/>}/>
+
                     <Route path="/show-book-for-user/" element={<ShowBookListForUser/>}/>
                     <Route path="/show-book-for-user-type/:type" element={<ShowBookDetailsForUser/>}/>
+                    <Route path="/book-booking/:id" element={<BookBooking/>}/>
+                    <Route path="/show-book-for-user-order" element={<ShowBookForUserOrder/>}/>
+
+
+
                     <Route path="/quiz-play" element={<QuizQuestionAnswer/>}/>
                     <Route path="/check-answer" element={<CheckQuizAnswer/>}/>
 
@@ -58,6 +68,7 @@ function RouterComponents() {
 
 
                     <Route path="/show-important-question-for-user" element={<ShowImportantQuestionListForUser/>}/>
+                    <Route path="/show-important-question-user-type/:type" element={<ShowImportantQuestionListForDetails/>}/>
 
 
                     <Route element={<RoleMiddleware/>}>
