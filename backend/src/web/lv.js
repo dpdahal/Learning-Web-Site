@@ -26,5 +26,15 @@ lvRoute.put("/", upload.single('video'), lvInstance.update);
 lvRoute.delete("/:id", lvInstance.destroy);
 lvRoute.get('/video/:type', lvInstance.showVideoForUser);
 
+/*
+===================Start Payment=================
+ */
+
+lvRoute.post('/video', lvInstance.orderBook)
+lvRoute.post('/video/video/video-confirm', lvInstance.bookingConfirm)
+lvRoute.get('/video/order/show-order-by-login', lvInstance.showOrderByLogin)
+lvRoute.get('/video-get/:id', lvInstance.getBooking)
+
+
 
 export default lvRoute;

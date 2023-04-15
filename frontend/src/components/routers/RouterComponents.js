@@ -36,6 +36,9 @@ import ShowImportantQuestionListForDetails
     from "../admin-panel/pages/importantquestion/ShowImportantQuestionListForDetails";
 import BookBooking from "../admin-panel/pages/booking/BookBooking";
 import ShowBookForUserOrder from "../admin-panel/pages/book/ShowBookForUserOrder";
+import VideoBooking from "../admin-panel/pages/booking/VideoBooking";
+import ShowVideoForUserOrder from "../admin-panel/pages/learningvideo/ShowVideoForUserOrder";
+import AddSuggestQuestion from "../admin-panel/pages/quizquestion/AddSuggestQuestion";
 
 function RouterComponents() {
     return (
@@ -65,6 +68,14 @@ function RouterComponents() {
 
                     <Route path="/show-video-for-user/" element={<ShowVideoListForUser/>}/>
                     <Route path="/show-video-for-user-type/:type" element={<ShowVideoDetailsForUser/>}/>
+                    <Route path="/video-booking/:id" element={<VideoBooking/>}/>
+                    <Route path="/show-video-for-user-order" element={<ShowVideoForUserOrder/>}/>
+
+                    <Route path="/add-suggest-question" element={<AddSuggestQuestion/>}/>
+
+
+
+
 
 
                     <Route path="/show-important-question-for-user" element={<ShowImportantQuestionListForUser/>}/>

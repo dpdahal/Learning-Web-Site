@@ -21,6 +21,7 @@ function AdminAsideComponents() {
 
     return (
         <React.Fragment>
+
             <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block sideBackground sidebar collapse">
                 <div className="position-sticky pt-3 sidebar-sticky">
                     <div className="profile">
@@ -79,12 +80,20 @@ function AdminAsideComponents() {
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
                                     <i className="bi bi-images"></i> Learning Video
                                 </Link>
+                                <Link to='/show-video-for-user-order' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-book"></i> Learning Video Order
+                                </Link>
                             </li>
                             :
                             <li className="nav-item">
                                 <Link to='/show-video-for-user' className="nav-link" href="#">
                                     <span data-feather="shopping-cart" className="align-text-bottom"/>
                                     <i className="bi bi-book"></i> Learning Video
+                                </Link>
+                                <Link to='/show-video-for-user-order' className="nav-link" href="#">
+                                    <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                    <i className="bi bi-book"></i> Learning Video Order
                                 </Link>
                             </li>
                         }
@@ -120,22 +129,32 @@ function AdminAsideComponents() {
                                 <i className="bi bi-pencil-square"></i> Update Profile
                             </Link>
                         </li>
+                        {user.role === 'user' ?
+                            <div>
+                                <li className="nav-item">
+                                    <Link to='/quiz-play' className="nav-link" href="#">
+                                        <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                        <i className="bi bi-pencil-square"></i> Quiz Play
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/check-answer' className="nav-link" href="#">
+                                        <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                        <i className="bi bi-pencil-square"></i> Check Answer
+                                    </Link>
+                                </li>
+                            </div>
+                            : ''}
                         <li className="nav-item">
-                            <Link to='/quiz-play' className="nav-link" href="#">
-                                <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                <i className="bi bi-pencil-square"></i> Quiz Play
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to='/check-answer' className="nav-link" href="#">
-                                <span data-feather="shopping-cart" className="align-text-bottom"/>
-                                <i className="bi bi-pencil-square"></i> Check Answer
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to='/change-password' className="nav-link" href="#">
+                            <Link to='/change-password' className="nav-link">
                                 <span data-feather="shopping-cart" className="align-text-bottom"/>
                                 <i className="bi bi-lock-fill"></i> Change Password
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/add-suggest-question' className="nav-link">
+                                <span data-feather="shopping-cart" className="align-text-bottom"/>
+                                <i className="bi bi-book"></i> Suggest Question
                             </Link>
                         </li>
 

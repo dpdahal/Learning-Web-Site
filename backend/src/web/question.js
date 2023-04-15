@@ -33,5 +33,10 @@ qRoute.post('/', upload.fields([
 
 qRoute.delete('/:id', qInstance.destroy);
 
+qRoute.get('/suggest/question', qInstance.suggestQuestion);
+qRoute.post('/suggest/add', qInstance.addSuggestQuestion);
+qRoute.delete('/suggest/delete/:id', qInstance.deleteSuggestQuestion);
+
+
 
 export default qRoute;

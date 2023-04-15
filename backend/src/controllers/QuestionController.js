@@ -1,6 +1,9 @@
 import QuizQuestion from "../models/QuizQuestion.js";
 import fs from "fs";
 import QuizAnswer from "../models/QuizAnswer.js";
+import SuggestQuiz from "../models/SuggestQuiz.js";
+import Auth from "../auth/auth.js";
+import User from "../models/User.js";
 
 class QuestionController {
 
@@ -143,6 +146,42 @@ class QuestionController {
 
     }
 
+
+    async suggestQuestion(req, res) {
+        let token = req.headers.authorization;
+        let ojb = Auth.verifyToken(token);
+        console.log(ojb);
+        let loginUser = await User.findById(ojb.id);
+        if (loginUser.role === 'admin') {
+            let sData = await SuggestQuiz.find({})
+            return res.status(200).json({sData: sData});
+        } else {
+            let sData = await SuggestQuiz.find({userId: loginUser._id}).populate("userId");
+            return res.status(200).json({sData: sData});
+        }
+    }
+
+    async addSuggestQuestion(req, res) {
+        try {
+            SuggestQuiz.create({...req.body}).then((iqs) => {
+                return res.status(200).json({success: "Suggest Question created successfully"});
+            }).catch((err) => {
+                return res.json(err);
+            });
+        } catch (e) {
+            return res.json(e);
+        }
+    }
+
+    async deleteSuggestQuestion(req, res) {
+        let id = req.params.id;
+        try {
+            await SuggestQuiz.findByIdAndDelete(id);
+            return res.status(200).json({success: "Suggest Question deleted successfully"});
+        } catch (err) {
+            return res.json(err);
+        }
+    }
 
 }
 

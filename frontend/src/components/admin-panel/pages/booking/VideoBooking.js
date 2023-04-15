@@ -5,13 +5,13 @@ import api from "../../../../lib/api";
 import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 
-function BookingBooking() {
+function VideoBooking() {
     const [bookingData, setBookingData] = useState([]);
     const params = useParams();
     const bookingId = params.id;
 
     useEffect(() => {
-        api.get(`/book/booking/${bookingId}`).then((response) => {
+        api.get(`/lv/video-get/${bookingId}`).then((response) => {
             setBookingData(response.data.bookingData);
         })
     }, []);
@@ -25,14 +25,14 @@ function BookingBooking() {
         let amount = bookingData.totalPrice * 100;
 
         const data = {
-            return_url: "http://localhost:3000/",
+            return_url: "http://localhost:3000/payment",
             website_url: "http://localhost:3000",
             amount: 1000,
             purchase_order_id: "test123",
             purchase_order_name: "test",
         };
 
-        await api.post("/book/booking-confirm/", sendData).then((response) => {
+        await api.post("/lv/video/video/video-confirm/", sendData).then((response) => {
             axios.post('https://a.khalti.com/api/v2/epayment/initiate/', data, {
                 headers: {
                     'Authorization': 'Key 799d17e01c6e4399b81b884833819810',
@@ -51,7 +51,6 @@ function BookingBooking() {
         });
     }
 
-    // show after loading data
     if (bookingData.length === 0) {
         return (
             <React.Fragment>
@@ -83,6 +82,7 @@ function BookingBooking() {
         )
     }
 
+
     return (
         <React.Fragment>
             <AdminHeaderComponents/>
@@ -92,7 +92,7 @@ function BookingBooking() {
                 <div className="container mb-5 mt-5">
                     <div className="row">
                         <div className="col-md-12 mb-3">
-                            <h1 className="card-title-dp">Booking</h1>
+                            <h1 className="card-title-dp">Video Booking</h1>
                         </div>
                     </div>
                     <div className="row">
@@ -134,4 +134,4 @@ function BookingBooking() {
     );
 }
 
-export default BookingBooking;
+export default VideoBooking;

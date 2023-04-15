@@ -2,6 +2,7 @@ import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 import React, {useEffect, useState} from "react";
 import api from "../../../../lib/api";
+import {Link} from "react-router-dom";
 
 
 function CheckQuizAnswer() {
@@ -66,9 +67,7 @@ function CheckQuizAnswer() {
     }
 
     let score = (totalCorrectAnswer / questions.length) * 100;
-    // get only two decimal
     score = score.toFixed(2);
-    console.log(score);
 
 
     if (questions.length === 0) {
@@ -82,6 +81,8 @@ function CheckQuizAnswer() {
                             <div className="card">
                                 <div className="card-body">
                                     <h2 className="text-center">You have not answered any question</h2>
+                                    <hr/>
+                                    <Link to="/add-suggest-question">Suggest Question</Link>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +99,9 @@ function CheckQuizAnswer() {
             <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
                 <div className="row">
                     <div className="col-md-12 mb-4">
-                        <h2>Your Answers</h2>
+                        <h2>Your Answers
+                            <Link to="/add-suggest-question" className="btn btn-success float-end">Suggest Question</Link>
+                        </h2>
                     </div>
                     <div className="col-md-12">
 

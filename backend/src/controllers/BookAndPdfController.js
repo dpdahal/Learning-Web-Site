@@ -157,7 +157,6 @@ class BookAndPdfController {
     async getBooking(req, res) {
         let id = req.params.id;
         BookAndPDFBook.findById(id).populate("bookId").populate("userId").then((book) => {
-            console.log(book);
             return res.status(200).json({bookingData: book});
         });
     }
@@ -217,7 +216,6 @@ class BookAndPdfController {
             let bookingData = await BookAndPDFBook.find({userId: loginUser._id})
                 .populate("bookId")
                 .populate("userId");
-            console.log(bookingData);
             return res.status(200).json({bookingData: bookingData});
         }
 

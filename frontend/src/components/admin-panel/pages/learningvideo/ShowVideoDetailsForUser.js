@@ -1,9 +1,10 @@
 import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 import React, {useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import api from "../../../../lib/api";
 function ShowVideoDetailsForUser() {
+    const navigate = useNavigate();
     const params = useParams();
     const [books, setBooks] = useState([]);
 
@@ -16,6 +17,20 @@ function ShowVideoDetailsForUser() {
     useEffect(() => {
         getVideoByType();
     },[]);
+
+    const orderBook = async (videoId, price) => {
+        let user = localStorage.getItem('user');
+        user = JSON.parse(user);
+        const userId = user._id;
+        let response = await api.post(`/lv/video/`, {
+            videoId: videoId,
+            userId: userId,
+            totalPrice: price,
+            paymentStatus: "pending"
+
+        });
+        navigate(`/video-booking/${response.data.booking._id}`);
+    }
 
     return (<React.Fragment>
             <AdminHeaderComponents/>
@@ -37,7 +52,13 @@ function ShowVideoDetailsForUser() {
                                     </video>
                                     <div className="card-body">
                                         <h5 className="card-title">{book.title}</h5>
-                                       Rs: {book.price}  <a href="#" className="btn btn-primary">Download</a>
+                                       Rs: {book.price}
+
+                                        <button
+                                            onClick={() => orderBook(book._id, book.price)}
+                                            className="btn btn-primary">
+                                            <i className="bi bi-download"></i> Buy Now
+                                        </button>
                                     </div>
                                 </div>
                             </div>
