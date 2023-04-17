@@ -39,6 +39,12 @@ function ShowQuestions() {
                             'success'
                         );
                         getQuestion();
+                    }else{
+                        Swal.fire(
+                            'Deleted!',
+                            res.data.error,
+                            'error'
+                        );
                     }
                 });
             }
@@ -46,7 +52,7 @@ function ShowQuestions() {
     };
 
     const updateData = (id) => {
-        navigate(`/update-imp-question/${id}`);
+        navigate(`/update-quiz-question/${id}`);
     }
 
     if(questions.length === 0) return (<React.Fragment>
@@ -128,19 +134,19 @@ function ShowQuestions() {
                                         <td>{impQuestion.type}</td>
                                         <td>{impQuestion.question}</td>
                                         <td>
-                                            {impQuestion.optionsOne}
+                                            {impQuestion.optionOne}
                                             <br/>
                                             <img src={impQuestion.optionAImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionsTwo}
+                                        <td>{impQuestion.optionTwo}
                                             <br/>
                                             <img src={impQuestion.optionBImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionsThree}
+                                        <td>{impQuestion.optionThree}
                                             <br/>
                                             <img src={impQuestion.optionCImage} width='50' alt="image not found"/>
                                         </td>
-                                        <td>{impQuestion.optionsFour}
+                                        <td>{impQuestion.optionFour}
                                             <br/>
                                             <img src={impQuestion.optionDImage} width='50' alt="image not found"/>
                                         </td>

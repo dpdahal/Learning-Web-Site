@@ -18,9 +18,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 qRoute.get('/', qInstance.index);
-qRoute.post('/check-playing', qInstance.checkPlayingTimeAnswer);
-qRoute.post('/insert-answer', qInstance.insertAnswer);
-qRoute.post('/check-answer', qInstance.checkAnswer);
+
+
 
 
 qRoute.post('/', upload.fields([
@@ -31,10 +30,14 @@ qRoute.post('/', upload.fields([
     {name: 'optionDImage'}
 ]), qInstance.store);
 
+qRoute.get('/:id', qInstance.show);
 qRoute.delete('/:id', qInstance.destroy);
-
+qRoute.post('/check-playing', qInstance.checkPlayingTimeAnswer);
+qRoute.post('/insert-answer', qInstance.insertAnswer);
+qRoute.post('/check-answer', qInstance.checkAnswer);
 qRoute.get('/suggest/question', qInstance.suggestQuestion);
 qRoute.post('/suggest/add', qInstance.addSuggestQuestion);
+qRoute.get('/play/quiz-play-type/:type', qInstance.quizPlayType);
 qRoute.delete('/suggest/delete/:id', qInstance.deleteSuggestQuestion);
 
 

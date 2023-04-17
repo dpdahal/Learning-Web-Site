@@ -67,28 +67,57 @@ class QuestionController {
 
     }
 
+    async show(req, res) {
+        let id = req.params.id;
+        return await QuizQuestion.findById(id).then((question) => {
+            return res.status(200).json({question: question});
+        }).catch((err) => {
+            return res.json(err);
+        });
+    }
+
+    async quizPlayType(req, res) {
+        let quizType = req.params.type;
+        return await QuizQuestion.find({type: quizType}).then((question) => {
+            return res.status(200).json({question: question});
+        }).catch((err) => {
+            return res.json(err);
+        });
+
+    }
+
+    async update(req, res) {
+
+    }
+
     async destroy(req, res) {
         let id = req.params.id;
-        let findData = await QuizQuestion.findById(id);
-        if (findData.image) {
-            let image = findData.image ?? "";
-            let filePath = process.cwd() + "\\public\\uploads\\question\\" + image;
-            if (fs.existsSync(filePath) && image) {
-                fs.unlinkSync(filePath);
-                await QuizQuestion.findByIdAndDelete(id);
-                return res.status(200).json({success: "Question Question deleted successfully"});
-            }
-            await QuizQuestion.findByIdAndDelete(id);
-            return res.status(200).json({success: "Question Question deleted successfully"});
+        let totalQuizAnswer = await QuizAnswer.find({questionId: id}).countDocuments();
+        console.log(totalQuizAnswer);
+        if (totalQuizAnswer > 0) {
+            return res.status(200).json({error: "You can not delete this question because it is used in quiz answer"});
         } else {
-
-            try {
+            let findData = await QuizQuestion.findById(id);
+            if (findData.image) {
+                let image = findData.image ?? "";
+                let filePath = process.cwd() + "\\public\\uploads\\question\\" + image;
+                if (fs.existsSync(filePath) && image) {
+                    fs.unlinkSync(filePath);
+                    await QuizQuestion.findByIdAndDelete(id);
+                    return res.status(200).json({success: "Question Question deleted successfully"});
+                }
                 await QuizQuestion.findByIdAndDelete(id);
                 return res.status(200).json({success: "Question Question deleted successfully"});
-            } catch (err) {
-                return res.json(err);
+            } else {
+                try {
+                    await QuizQuestion.findByIdAndDelete(id);
+                    return res.status(200).json({success: "Question Question deleted successfully"});
+                } catch (err) {
+                    return res.json(err);
+                }
             }
         }
+
     }
 
     async checkPlayingTimeAnswer(req, res) {

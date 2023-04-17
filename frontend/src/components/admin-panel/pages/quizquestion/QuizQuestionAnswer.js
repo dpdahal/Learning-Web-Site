@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import api from "../../../../lib/api";
 import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
+import {useParams} from "react-router-dom";
 
 function QuizQuestionAnswer() {
     const [checkedItems, setCheckedItems] = useState({});
@@ -11,9 +12,12 @@ function QuizQuestionAnswer() {
     const [questionsList, setQuestionsList] = useState([]);
     let user = localStorage.getItem('user');
     user = JSON.parse(user);
+    const params = useParams();
+    let type = params.id;
 
     let getQuestions = () => {
-        api.get('/question').then((response) => {
+        api.get(`/question/play/quiz-play-type/${type}`).then((response) => {
+            console.log(response.data.question)
             setQuestionsList(response.data.question);
         });
     }
@@ -68,7 +72,18 @@ function QuizQuestionAnswer() {
     }
 
     if (questionsList.length === 0) {
-        return <div>Loading...</div>
+        return (
+
+            <React.Fragment>
+                <AdminHeaderComponents/>
+                <AdminAsideComponents/>
+                <main className="col-md-9 ms-sm-auto mt-4 col-lg-10  px-md-4">
+                    <h1>No Questions Found</h1>
+                </main>
+
+            </React.Fragment>
+
+        )
     }
 
     return (
@@ -91,6 +106,13 @@ function QuizQuestionAnswer() {
                                 index === currentIndex && (
                                     <div key={index} className="col-md-12">
                                         <h3>{options.question}</h3>
+                                        {options.image ?
+                                            <div>
+                                                <img src={options.image} width="100%" height="300" alt=""/>
+                                            </div>
+                                            :
+                                            <div></div>
+                                        }
                                         <div className="row mt-4">
                                             <div className="col-md-6">
                                                 {options.optionOne ?

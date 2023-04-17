@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 import api from "../../../../lib/api";
+import Swal from "sweetalert2";
 
 const AddQuestion = () => {
     const [type, setType] = useState("");
@@ -164,7 +165,14 @@ const AddQuestion = () => {
             }
         })
             .then((response) => {
-                console.log(response);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Question added successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                window.location.href = "/add-question";
             }).catch((error) => {
             console.log(error);
         })

@@ -2,6 +2,7 @@ import AdminHeaderComponents from "../../layouts/AdminHeaderComponents";
 import AdminAsideComponents from "../../layouts/AdminAsideComponents";
 import React, {useEffect, useState} from "react";
 import api from "../../../../lib/api";
+import {Link} from "react-router-dom";
 
 function ShowVideoForUserOrder() {
     let user = localStorage.getItem('user');
@@ -42,7 +43,7 @@ function ShowVideoForUserOrder() {
                         </div>
                         <div className="col-md-12">
                             <h1 className="card-title-dp">
-                                Sorry, No Booking Found please book a booking and come back
+                                Sorry, No video Found please book a booking and come back
                             </h1>
                         </div>
                     </div>
@@ -59,7 +60,7 @@ function ShowVideoForUserOrder() {
             <div className="row">
                 <div className="col-md-12">
                     <h1 className="card-title-dp">
-                        <i className="bi bi-eye-fill"></i> Book And PDF Booking List
+                        <i className="bi bi-eye-fill"></i> Video List
 
                     </h1>
                     <hr/>
@@ -89,9 +90,11 @@ function ShowVideoForUserOrder() {
                                 <td>{book.status}</td>
                                 <td>
                                     {book.paymentStatus === 'paid' ?
-                                        <a href={book.videoId.image} target="_blank"
-                                           className="btn btn-success btn-sm">
-                                            Download <i className="bi bi-check"></i></a>
+                                        <Link to={book.videoId.videoUrl}
+                                              download="download"
+                                              target="_blank"
+                                              className="btn btn-success btn-sm">
+                                            Download <i className="bi bi-check"></i></Link>
                                         :
                                         <button className="btn btn-danger btn-sm">Not Download<i
                                             className="bi bi-file-earmark-excel-fill"></i></button>

@@ -39,6 +39,8 @@ import ShowBookForUserOrder from "../admin-panel/pages/book/ShowBookForUserOrder
 import VideoBooking from "../admin-panel/pages/booking/VideoBooking";
 import ShowVideoForUserOrder from "../admin-panel/pages/learningvideo/ShowVideoForUserOrder";
 import AddSuggestQuestion from "../admin-panel/pages/quizquestion/AddSuggestQuestion";
+import UpdateQuestion from "../admin-panel/pages/quizquestion/UpdateQuestion";
+import QuizListType from "../admin-panel/pages/quizquestion/QuizListType";
 
 function RouterComponents() {
     return (
@@ -62,7 +64,8 @@ function RouterComponents() {
 
 
 
-                    <Route path="/quiz-play" element={<QuizQuestionAnswer/>}/>
+                    <Route path="/quiz-play" element={<QuizListType/>}/>
+                    <Route path="/quiz-type-play/:id" element={<QuizQuestionAnswer/>}/>
                     <Route path="/check-answer" element={<CheckQuizAnswer/>}/>
 
 
@@ -72,14 +75,9 @@ function RouterComponents() {
                     <Route path="/show-video-for-user-order" element={<ShowVideoForUserOrder/>}/>
 
                     <Route path="/add-suggest-question" element={<AddSuggestQuestion/>}/>
-
-
-
-
-
-
                     <Route path="/show-important-question-for-user" element={<ShowImportantQuestionListForUser/>}/>
-                    <Route path="/show-important-question-user-type/:type" element={<ShowImportantQuestionListForDetails/>}/>
+                    <Route path="/show-important-question-user-type/:type"
+                           element={<ShowImportantQuestionListForDetails/>}/>
 
 
                     <Route element={<RoleMiddleware/>}>
@@ -94,7 +92,7 @@ function RouterComponents() {
                         <Route path="/update-book/:id" element={<UpdateBook/>}/>
                         <Route path="/add-question" element={<AddQuestion/>}/>
                         <Route path="/show-question" element={<ShowQuestions/>}/>
-                        <Route path="/update-question/:id" element={<UpdateBook/>}/>
+                        <Route path="/update-quiz-question/:id" element={<UpdateQuestion/>}/>
                     </Route>
 
 
